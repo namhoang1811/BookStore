@@ -3,14 +3,13 @@
 
 namespace {
     Book createEdit(Book& source, bool isCreate) {        
-        if (isCreate) {
-            cout << "Nhap Ma sach: ";
-            //getline(cin, source.id);
-            cin >> source.id;            
-        }  
         // Xóa bộ nhớ đệm để tránh lệnh getline phía sau bị trôi
         // (Do cin >> để lại dấu Enter trong bộ nhớ)
-        cin.ignore();
+        //cin.ignore();
+        if (isCreate) {
+            cout << "Nhap Ma sach: ";
+            getline(cin, source.id);        
+        }
         cout << "Nhap Ten sach: ";
         getline(cin, source.name);
         cout << "Nhap Tac gia: ";
@@ -18,7 +17,7 @@ namespace {
         while (true) {
             cout << "Nhap Nam XB: ";
             cin >> source.year;
-            if (source.year >= 0 && source.year <= DateTime::getCurrentYear())
+            if (source.year >= 0 && source.year <= DateTime::nowYear())
                 break;
             Print::invalid();
         }

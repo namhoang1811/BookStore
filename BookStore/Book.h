@@ -12,8 +12,6 @@ struct Book : Base {
     static Book create();
     static void edit(Book& source);
 
-    static string getFileName() { return "Book.bin"; }
-
     // --- GHI FILE TỔNG QUAN ---
     void serialize(ofstream& out) {
         // Chỉ cần liệt kê các biến muốn lưu theo đúng thứ tự

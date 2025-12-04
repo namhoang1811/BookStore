@@ -5,22 +5,22 @@ namespace {
 		int position;
         cout << "Nhap thu tu Sach: ";
         cin >> position;
+        cin.ignore(); // Xóa bộ nhớ đệm dấu Enter (\n)
         Book* result = books.findAt(position);
-        if (!result) {
+        if (!result) 
             Notify::warning(NOT_FOUND);
-        }
         return result;
     }
     Book* findById(List<Book>& books) {
         string id;
         cout << "Nhap ma Sach: ";
 		cin >> id;
+		cin.ignore(); // Xóa bộ nhớ đệm dấu Enter (\n) 
         Book* result = books.find([id](Book d) {
             return d.id == id;
             });
-        if (!result) {
+        if (!result)
             Notify::warning(NOT_FOUND);
-        }
         return result;
     }
 }
@@ -61,10 +61,9 @@ void BookMenu::show(List<Book>& books) {
             if (!isAny) {
                 books.addLast(model);
 				books.saveFile();
-                Notify::success("Them sach moi thanh cong!");
-            }
-            else {
-                Notify::danger("Them sach moi that bai! Trung Ma");
+                Notify::success(ACTIVE_SUCCESS);
+            } else {
+                Notify::danger("Them sach moi that bai do trung Ma");
             }
             break;
         }
@@ -73,8 +72,7 @@ void BookMenu::show(List<Book>& books) {
             Book* data = findAt(books);
             if (data) {
                 data->printData();
-                cout << endl << PRESS_EXIT;
-                char _ = _getch(); // Chờ bất một phím bất kỳ
+                Print::pressAnyKey();
             }            
             break;
         }
@@ -96,6 +94,7 @@ void BookMenu::show(List<Book>& books) {
                 Print::title("CHINH SUA SACH: " + data->name);
                 Book::edit(*data);
                 books.saveFile();
+				Notify::success(ACTIVE_SUCCESS);
             }
             break;
         }

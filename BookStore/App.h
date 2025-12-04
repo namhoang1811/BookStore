@@ -5,6 +5,6 @@ struct App {
     List<Book> books;
     // List<Staff> listStaff;
 
-    void menu();
+    void init();
     void run();  // Hàm chạy chính
 };

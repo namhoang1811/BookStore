@@ -1,4 +1,4 @@
-﻿//#pragma once
+﻿#pragma once
 #include <functional> // Để dùng lambda function
 #include <conio.h>   // Để dùng _getch()
 #include <iostream>
@@ -12,7 +12,7 @@ template <typename T>
 struct Node {
     T data;
     Node* next; // Trỏ tới phần tử sau
-    Node* prev; // Trỏ tới phần tử trước (MỚI)
+    Node* prev; // Trỏ tới phần tử trước
     Node(T val) : data(val), next(nullptr), prev(nullptr) {}
 };
 
@@ -20,7 +20,7 @@ struct Node {
 template <typename T>
 struct List {
     Node<T>* head; // Phần tử đầu
-    Node<T>* tail; // Phần tử cuối (MỚI - giúp thêm vào cuối nhanh hơn)
+    Node<T>* tail; // Phần tử cuối
     int size;
     List() : head(nullptr), tail(nullptr), size(0) {}
 
@@ -31,9 +31,9 @@ struct List {
 
     void displayPress(Node<T>* node) {
         if (node) {
-            cout << "--- Nhan phim bat ky de xem tiep, ESC de thoat ---";
+            cout << endl << "Nhan phim bat ky de xem tiep, ESC de thoat...";
         } else {
-            cout << "--- Nhan PHIM bat ky de thoat ---";
+            cout << endl << "Nhan PHIM bat ky de thoat...";
         }        
     }
     // Hiển thị danh sách
@@ -53,9 +53,9 @@ struct List {
             }
 			displayPress(current);
             char k = _getch();
-            if (!current || (int)k == 27) // Rỗng
+            if (!current || (int)k == 27) // Rỗng hoặc ấn ESC
                 break;
-            Print::removeLine();
+            Print::removeLine(2);
         }
     }
     void display(function<bool(T)> predicate, int count = 10) {
@@ -80,7 +80,7 @@ struct List {
             char k = _getch();
             if (!current || (int)k == 27) // Rỗng
                 break;
-            Print::removeLine();
+            Print::removeLine(2);
         }
     }
 
@@ -228,10 +228,8 @@ struct List {
     void saveFile() {
         string fileName = getName() + ".bin";
         ofstream out(fileName, ios::binary);
-        if (!out) {
-            cout << "Loi: Khong the tao file " << fileName << endl;
+        if (!out) 
             return;
-        }
         // 1. Ghi số lượng phần tử đầu tiên
         out.write((char*)&size, sizeof(int));
         // 2. Duyệt và ghi từng phần tử
@@ -247,15 +245,13 @@ struct List {
     // --- ĐỌC FILE NHỊ PHÂN ---
     void loadFile() {
         ifstream in(getName() + ".bin", ios::binary);
-        if (!in) {
+        if (!in) 
             return;
-        }
         // Xóa sạch danh sách cũ trước khi load
         clear();
         // 1. Đọc số lượng phần tử
         int count = 0;
         in.read((char*)&count, sizeof(int));
-
         // 2. Vòng lặp đọc từng phần tử
         for (int i = 0; i < count; ++i) {
             T item; // Tạo đối tượng tạm

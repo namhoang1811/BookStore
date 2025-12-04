@@ -1,5 +1,8 @@
 ﻿#include <windows.h>
+#include <conio.h> // Add this include for _getch
 #include "Print.h"
+#include "Const.h"
+
 
 namespace {
     void equal(int count, bool isEnd = false) {
@@ -26,8 +29,12 @@ void Print::invalid() {
 	cout << "Nhap khong hop le. Vui long nhap lai!" << endl;
 }
 
-void Print::removeLine() {
-    cout << "\033[2K\r";
+void Print::removeLine(int count) {
+    for (int i = 0; i < count; i++) {
+        cout << "\033[2K\r"; // Xóa toàn bộ dòng đó
+		if (i < count - 1)
+            cout << "\033[1A"; // Di chuyển con trỏ LÊN 1 dòng
+    }
 }
 
 void Print::clearScreen() {
@@ -44,4 +51,9 @@ void Print::clearScreen() {
         // Đưa con trỏ về vị trí (0, 0)
         SetConsoleCursorPosition(hStdOut, coord);
     }
+}
+
+void Print::pressAnyKey() {
+    cout << endl << PRESS_ANY_KEY;
+    char _ = _getch(); // Chờ bất một phím bất kỳ
 }

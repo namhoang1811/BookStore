@@ -1,7 +1,7 @@
 ﻿#include "DateTime.h"
 #include <ctime>   // Thư viện thời gian
 
-int DateTime::getCurrentYear() {
+int DateTime::nowYear() {
     time_t t = time(0);   // Lấy thời gian hiện tại
     struct tm now;
     // Sử dụng localtime_s (phiên bản an toàn của localtime trên Visual Studio)

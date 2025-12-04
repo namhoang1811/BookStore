@@ -3,5 +3,5 @@
 using namespace std;
 
 struct DateTime {
-    static int getCurrentYear();
+    static int nowYear();
 };

@@ -1,10 +1,13 @@
 ﻿#include "App.h"
 
-void App::menu() {
+void App::init() {
     while (true) {
         Print::title("MENU CHUONG TRINH CHINH");
         cout << "1. Quan ly Sach" << endl;
-        cout << "2. Quan ly Khach Hang" << endl;
+        cout << "2. Quan ly Nhan Vien" << endl;
+        cout << "3. Quan ly Khach Hang" << endl;
+        cout << "4. Quan ly Hoa don" << endl;
+        cout << "5. Thong tin" << endl;
         cout << "0. Thoat" << endl;
         cout << endl << PRESS_OPTION;
         char k = _getch();
@@ -22,6 +25,6 @@ void App::run() {
 	// Load dữ liệu từ file
     books.loadFile();
 
-    menu();
+    init();
 }
 
