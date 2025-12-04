@@ -9,4 +9,5 @@ struct Book : Base {
 
 	void printData();
     static Book create();
+    static void edit(Book source);
 };

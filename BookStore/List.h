@@ -28,7 +28,74 @@ struct List {
         clear();
     }
 
+    void displayPress(Node<T>* node) {
+        if (node) {
+            cout << "--- Nhan phim bat ky de xem tiep, ESC de thoat ---";
+        } else {
+            cout << "--- Da het danh sach, nhan PHIM bat ky de thoat ---";
+        }        
+    }
+    // Hiển thị danh sách
+    void display(int count = 10) {
+        if (!any()) {
+            cout << "Danh sach trong!";
+            return;
+        }
+        Node<T>* current = head;
+        while (true) {
+            for (int i = 0; i < count && current; i++) {
+                if (current) {
+                    current->data.printData(); // Giả sử T là struct có hàm printData
+                    current = current->next;
+                } else
+                    break;
+            }
+			displayPress(current);
+            char k = _getch();
+            if (!current || (int)k == 27) // Rỗng
+                break;
+            Print::removeLine();
+        }
+    }
+    void display(function<bool(T)> predicate, int count = 10) {
+        if (!any()) {
+            cout << "Danh sach trong!";
+            return;
+        }
+        Node<T>* current = head;
+        while (true) {
+            for (int i = 0; i < count && current; i++) {
+                while (current) {
+                    if (predicate(current->data)) {
+                        current->data.printData(); // Giả sử T là struct có hàm printData
+                        break;
+                    }
+                    current = current->next;
+                }
+            }
+            displayPress(current);
+            char k = _getch();
+            if (!current || (int)k == 27) // Rỗng
+                break;
+            Print::removeLine();
+        }
+    }
+
+	// Tìm kiếm phần tử đầu tiên thỏa mãn điều kiện
+    Node<T>* find(function<bool(T)> predicate) {
+        Node<T>* current = head;
+        while (current) {
+            if (predicate(current->data)) 
+				return current;
+            current = current->next;
+        }
+        return nullptr;
+    }
+
     Node<T>* findAt(int position) {
+        if(position < 1)
+			return nullptr;
+        position--;
         Node<T>* current = head;
         if (!current)
             return current;
@@ -38,6 +105,21 @@ struct List {
                 break;
         }
         return current;
+    }
+
+    bool any() {
+        return head != nullptr;
+    }
+
+    bool any(function<bool(T)> predicate) {
+        bool found = false;
+        Node<T>* current = head;
+        while (current) {
+            if (predicate(current->data)) 
+                return true;
+            current = current->next;
+        }
+        return false;
     }
 
     // Thêm vào cuối danh sách (Logic của Doubly Linked List)
@@ -53,74 +135,6 @@ struct List {
             tail = newNode;       // Cập nhật đuôi mới
         }
         size++;
-    }
-
-    // Hiển thị danh sách
-    void display(int count = 10) {
-        if (isEmpty())
-            return;
-        Node<T>* current = head;
-        while (true) {
-            for (int i = 0; i < count && current; i++) {
-                if (current) {
-                    current->data.printData(); // Giả sử T là struct có hàm printData
-                    current = current->next;
-                } else 
-                    break;
-            }
-            if (current) {
-				cout << "--- Nhan phim bat ky de xem tiep, ESC de thoat ---";
-            } else {
-				cout << "--- Da het danh sach, nhan PHIM bat ky de thoat ---";
-            }
-            char k = _getch();
-            cout << (int)k;
-            if (!current || (int)k == 27) // Rỗng
-                break;
-            Print::removeLine();
-        }
-    }
-
-    // Xóa theo điều kiện (Logic xóa của Doubly Linked List phức tạp hơn xíu)
-    void remove(function<bool(T)> predicate) {
-        Node<T>* current = head;
-        while (current) {
-            Node<T>* nextNode = current->next; // Lưu lại node tiếp theo trước khi xử lý
-            if (predicate(current->data)) {
-                // Logic xóa node current
-                // 1. Xử lý liên kết với node trước (prev)
-                if (current->prev) {
-                    current->prev->next = current->next;
-                } else {
-                    // Nếu không có prev, tức là đang xóa head
-                    head = current->next;
-                }
-                // 2. Xử lý liên kết với node sau (next)
-                if (current->next) {
-                    current->next->prev = current->prev;
-                } else {
-                    // Nếu không có next, tức là đang xóa tail
-                    tail = current->prev;
-                }
-                delete current;
-                size--;
-            }
-            current = nextNode; // Nhảy sang node tiếp theo
-        }
-    }
-
-    // Tìm kiếm (Giữ nguyên logic duyệt xuôi)
-    void find(function<bool(T)> predicate) {
-        bool found = false;
-        Node<T>* current = head;
-        while (current) {
-            if (predicate(current->data)) {
-                current->data.printData();
-                found = true;
-            }
-            current = current->next;
-        }
-        if (!found) cout << "(Khong tim thay ket qua)" << endl;
     }
 
     // Sắp xếp (Interchange Sort - Đổi chỗ data, không đổi pointer nên code như cũ)
@@ -171,20 +185,37 @@ struct List {
         return &(best->data);
     }
 
-    bool remove(Node<T>* node) {
-        if (node) {
-            node->prev->next = node->next;
-            node->next->prev = node->prev;
-            delete node;
-            size--;
-            return true;
+    // Xóa theo điều kiện (Logic xóa của Doubly Linked List phức tạp hơn xíu)
+    void remove(function<bool(T)> predicate) {
+        Node<T>* current = head;
+        while (current) {
+            Node<T>* nextNode = current->next; // Lưu lại node tiếp theo trước khi xử lý
+            if (predicate(current->data)) {
+                // Logic xóa node current
+                remove(current);
+            }
+            current = nextNode; // Nhảy sang node tiếp theo
         }
-        return false;
     }
 
-    bool isEmpty() {
-        if (!head) {
-            cout << "Danh sach trong!" << endl;
+    bool remove(Node<T>* node) {
+        if (node) {
+            // 1. Xử lý liên kết với node trước (prev)
+            if (node->prev) {
+                node->prev->next = node->next;
+            } else {
+                // Nếu không có prev, tức là đang xóa head
+                head = node->next;
+            }
+            // 2. Xử lý liên kết với node sau (next)
+            if (node->next) {
+                node->next->prev = node->prev;
+            } else {
+                // Nếu không có next, tức là đang xóa tail
+                tail = node->prev;
+            }
+            delete node;
+            size--;
             return true;
         }
         return false;

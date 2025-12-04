@@ -133,6 +133,7 @@
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="BookMenu.cpp" />
     <ClCompile Include="DateTime.cpp" />
+    <ClCompile Include="Notify.cpp" />
     <ClCompile Include="Print.cpp" />
     <ClCompile Include="Print.h" />
     <ClCompile Include="main.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="BookMenu.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="Notify.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
