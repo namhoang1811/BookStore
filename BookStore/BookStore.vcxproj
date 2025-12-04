@@ -127,7 +127,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="BaseMenu.h" />
+    <ClCompile Include="Book.h" />
+    <ClCompile Include="Book.cpp" />
+    <ClCompile Include="BookMenu.cpp" />
+    <ClCompile Include="DateTime.cpp" />
+    <ClCompile Include="Print.cpp" />
+    <ClCompile Include="Print.h" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="Base.h" />
+    <ClInclude Include="BookMenu.h" />
+    <ClInclude Include="DateTime.h" />
+    <ClInclude Include="List.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
