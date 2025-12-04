@@ -144,6 +144,7 @@
     <ClInclude Include="BookMenu.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="DateTime.h" />
+    <ClInclude Include="FileHelper.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Notify.h" />
   </ItemGroup>

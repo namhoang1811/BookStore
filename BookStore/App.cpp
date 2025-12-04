@@ -18,21 +18,10 @@ void App::menu() {
     }
 }
 
-void App::load() {
-	for (int i = 0; i < 5; i++) {
-        Book book;
-        book.id = "B00" + to_string(i + 1);
-        book.name = "Sach " + to_string(i + 1);
-        book.author = "Tac gia " + to_string(i + 1);
-        book.year = 2000 + i;
-        book.price = 10000 + i * 5000;
-        book.count = 10 + i * 2;
-        books.addLast(book);
-    }
-}
-
 void App::run() {
-    load();
+	// Load dữ liệu từ file
+    books.loadFile();
+
     menu();
 }
 

@@ -60,6 +60,7 @@ void BookMenu::show(List<Book>& books) {
                 });
             if (!isAny) {
                 books.addLast(model);
+				books.saveFile();
                 Notify::success("Them sach moi thanh cong!");
             }
             else {
@@ -90,10 +91,11 @@ void BookMenu::show(List<Book>& books) {
         }
         case 5: {
             Print::title("CHINH SUA SACH THEO THU TU");
-            auto data = findAt(books);
+            Book* data = findAt(books);
             if (data) {
                 Print::title("CHINH SUA SACH: " + data->name);
                 Book::edit(*data);
+                books.saveFile();
             }
             break;
         }

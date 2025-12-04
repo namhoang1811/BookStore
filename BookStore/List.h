@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Print.h"
 
+
 using namespace std;
 
 // 1. Cấu trúc Node cho liên kết kép
@@ -124,7 +125,7 @@ struct List {
         return false;
     }
 
-    // Thêm vào cuối danh sách (Logic của Doubly Linked List)
+    // Thêm vào cuối danh sách
     void addLast(T item) {
         Node<T>* newNode = new Node<T>(item);
         if (!head) {
@@ -139,7 +140,7 @@ struct List {
         size++;
     }
 
-    // Sắp xếp (Interchange Sort - Đổi chỗ data, không đổi pointer nên code như cũ)
+    // Sắp xếp (Interchange Sort - Đổi chỗ data)
     void sort(function<bool(T, T)> compare) {
         if (!head || !head->next) return;
         for (Node<T>* i = head; i != nullptr; i = i->next) {
@@ -163,7 +164,7 @@ struct List {
     }
 
     // Đếm
-    int countIf(function<bool(T)> predicate) {
+    int count(function<bool(T)> predicate) {
         int count = 0;
         Node<T>* current = head;
         while (current) {
@@ -187,7 +188,7 @@ struct List {
         return &(best->data);
     }
 
-    // Xóa theo điều kiện (Logic xóa của Doubly Linked List phức tạp hơn xíu)
+    // Xóa theo điều kiện 
     void remove(function<bool(T)> predicate) {
         Node<T>* current = head;
         while (current) {
@@ -221,6 +222,59 @@ struct List {
             return true;
         }
         return false;
+    }
+
+    // --- LƯU FILE NHỊ PHÂN ---
+    void saveFile() {
+        string fileName = getName() + ".bin";
+        ofstream out(fileName, ios::binary);
+        if (!out) {
+            cout << "Loi: Khong the tao file " << fileName << endl;
+            return;
+        }
+        // 1. Ghi số lượng phần tử đầu tiên
+        out.write((char*)&size, sizeof(int));
+        // 2. Duyệt và ghi từng phần tử
+        Node<T>* current = head;
+        while (current) {
+            // Gọi hàm serialize của đối tượng T để nó tự ghi
+            current->data.serialize(out);
+            current = current->next;
+        }
+        out.close();
+    }
+
+    // --- ĐỌC FILE NHỊ PHÂN ---
+    void loadFile() {
+        ifstream in(getName() + ".bin", ios::binary);
+        if (!in) {
+            return;
+        }
+        // Xóa sạch danh sách cũ trước khi load
+        clear();
+        // 1. Đọc số lượng phần tử
+        int count = 0;
+        in.read((char*)&count, sizeof(int));
+
+        // 2. Vòng lặp đọc từng phần tử
+        for (int i = 0; i < count; ++i) {
+            T item; // Tạo đối tượng tạm
+            item.deserialize(in); // Bảo nó tự đọc dữ liệu từ file
+            addLast(item); // Thêm vào list
+        }
+        in.close();
+    }
+
+    string getName() {
+        string name = typeid(T).name();
+        // Tìm vị trí khoảng trắng cuối cùng (để bỏ qua chữ struct/class)
+        // Trong Visual Studio, nó thường là "struct TenClass"
+        size_t lastSpace = name.find_last_of(' ');
+        if (lastSpace != string::npos) {
+            // Cắt từ sau khoảng trắng đến hết
+            return name.substr(lastSpace + 1);
+        }
+        return name; // Nếu không có khoảng trắng thì trả về nguyên gốc
     }
 
     void clear() {
