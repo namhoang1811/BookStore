@@ -1,6 +1,5 @@
 #pragma once 
 #include <iostream>
-#include "Color.h"
 
 using namespace std;
 

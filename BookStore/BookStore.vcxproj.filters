@@ -83,5 +83,8 @@
     <ClInclude Include="Notify.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Const.h">
+      <Filter>Header Files\Bases</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

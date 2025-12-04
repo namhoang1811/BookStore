@@ -3,5 +3,5 @@
 #include "BaseMenu.h"
 
 struct BookMenu : BaseMenu {
-    static void show(List<Book> sources);
+    static void show(List<Book>& sources);
 };

@@ -142,6 +142,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="BookMenu.h" />
+    <ClInclude Include="Const.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Notify.h" />

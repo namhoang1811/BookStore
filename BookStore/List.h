@@ -32,7 +32,7 @@ struct List {
         if (node) {
             cout << "--- Nhan phim bat ky de xem tiep, ESC de thoat ---";
         } else {
-            cout << "--- Da het danh sach, nhan PHIM bat ky de thoat ---";
+            cout << "--- Nhan PHIM bat ky de thoat ---";
         }        
     }
     // Hiển thị danh sách
@@ -66,11 +66,13 @@ struct List {
         while (true) {
             for (int i = 0; i < count && current; i++) {
                 while (current) {
-                    if (predicate(current->data)) {
+					bool isFound = predicate(current->data);
+                    if (isFound) {
                         current->data.printData(); // Giả sử T là struct có hàm printData
-                        break;
                     }
                     current = current->next;
+                    if (isFound)
+                        break;
                 }
             }
             displayPress(current);
@@ -82,29 +84,29 @@ struct List {
     }
 
 	// Tìm kiếm phần tử đầu tiên thỏa mãn điều kiện
-    Node<T>* find(function<bool(T)> predicate) {
+    T* find(function<bool(T)> predicate) {
         Node<T>* current = head;
         while (current) {
             if (predicate(current->data)) 
-				return current;
+				return &(current->data);
             current = current->next;
         }
         return nullptr;
     }
 
-    Node<T>* findAt(int position) {
+    T* findAt(int position) {
         if(position < 1)
 			return nullptr;
         position--;
         Node<T>* current = head;
         if (!current)
-            return current;
+            return nullptr;
         for (int i = 0; i < position; i++) {
             current = current->next;
             if (!current)
-                break;
+                return nullptr;
         }
-        return current;
+        return &(current->data);
     }
 
     bool any() {

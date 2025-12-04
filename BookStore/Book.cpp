@@ -2,11 +2,15 @@
 #include "DateTime.h"
 
 namespace {
-    Book createEdit(Book source, bool isCreate) {
+    Book createEdit(Book source, bool isCreate) {        
         if (isCreate) {
             cout << "Nhap Ma sach: ";
-            getline(cin, source.id);
-        }
+            //getline(cin, source.id);
+            cin >> source.id;
+            // Xóa bộ nhớ đệm để tránh lệnh getline phía sau bị trôi
+            // (Do cin >> để lại dấu Enter trong bộ nhớ)
+            cin.ignore();
+        }        
         cout << "Nhap Ten sach: ";
         getline(cin, source.name);
         cout << "Nhap Tac gia: ";

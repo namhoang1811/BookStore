@@ -6,7 +6,7 @@ void App::menu() {
         cout << "1. Quan ly Sach" << endl;
         cout << "2. Quan ly Khach Hang" << endl;
         cout << "0. Thoat" << endl;
-        cout << endl << "Bam phim lua chon: ";
+        cout << endl << PRESS_OPTION;
         char k = _getch();
         switch ((int)k - 48) {
         case 1: BookMenu::show(books); break;
