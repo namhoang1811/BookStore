@@ -12,7 +12,7 @@ struct Input {
         return temp;
     }
 
-    static void autoType(string source) {
+    static void autoTyping(string source) {
         if (source.empty()) return; 
         // vector
         vector<INPUT_RECORD> events(source.length());

@@ -8,16 +8,16 @@ namespace {
             getline(cin, source.id);        
         }
         cout << "Nhap Ten sach: ";
-		Input::autoType(source.name);
+		Input::autoTyping(source.name);
         getline(cin, source.name);
         cout << "Nhap Tac gia: ";
-        Input::autoType(source.author);
+        Input::autoTyping(source.author);
         getline(cin, source.author);
         while (true) {
             cout << "Nhap Nam XB: ";
-            try {
-                if(!isCreate)
-                    Input::autoType(to_string(source.year));
+            if (!isCreate)
+                Input::autoTyping(to_string(source.year));
+            try {                
                 source.year = stoi(Input::read());
                 if (source.year >= 0 && source.year <= DateTime::nowYear())
                     break;
@@ -26,9 +26,9 @@ namespace {
         }
         while (true) {
             cout << "Nhap Gia ban: ";
-            try {
-                if (!isCreate)
-                    Input::autoType(to_string(source.price));
+            if (!isCreate)
+                Input::autoTyping(to_string(source.price));
+            try {                
                 source.price = stod(Input::read());
                 if (source.price >= 0)
                     break;
@@ -37,9 +37,9 @@ namespace {
         }
         while (true) {
             cout << "Nhap So luong ton: ";
-            try {
-                if (!isCreate)
-                    Input::autoType(to_string(source.count));
+            if (!isCreate)
+                Input::autoTyping(to_string(source.count));
+            try {                
                 source.count = stoi(Input::read());
                 if (source.count >= 0)
                     break;
