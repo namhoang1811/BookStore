@@ -7,7 +7,14 @@ struct Book : Base {
     double price;
     int count;
 
-	void printData();
+    void printHeader() {
+        cout << left << setw(10) << "MA" << setw(30) << "TEN SACH" << setw(30) << "TAC GIA" << setw(10) << "NAM" << setw(15) << "GIA" << setw(15) << "SO LUONG" << endl;
+    }
+    void printData(bool isHeader = true) {
+        if(isHeader)
+			printHeader();
+        cout << left << setw(10) << id << setw(30) << name << setw(30) << author << setw(10) << year << setw(15) << price << setw(15) << count << endl;
+    }
     static Book create();
     static void edit(Book& source);
 

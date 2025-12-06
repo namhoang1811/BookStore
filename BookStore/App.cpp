@@ -14,8 +14,8 @@ void App::init() {
         switch ((int)k - 48) {
         case 1: BookMenu::show(books); break;
         case 0:
-            Print::clearScreen();
-            Notify::primary("Cam on da su dung chuong trinh!", 0);
+            Print::title("MENU CHUONG TRINH CHINH");
+            cout << "Cam on da su dung chuong trinh!";
             return;
         }
     }

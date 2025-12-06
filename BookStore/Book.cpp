@@ -50,10 +50,6 @@ namespace {
     }
 }
 
-void Book::printData() {
-    cout << left << setw(10) << id << setw(30) << name << setw(15) << price << endl;
-}
-
 Book Book::create() {    
     Book model;
     return createEdit(model, true);

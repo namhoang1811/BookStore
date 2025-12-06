@@ -35,16 +35,17 @@ struct List {
         }        
     }
     // Hiển thị danh sách
-    void display(int count = 10) {
+    void display(int count = 5) {
         if (!any()) {
             cout << "Danh sach trong!";
             return;
         }
         Node<T>* current = head;
+        current->data.printHeader();
         while (true) {
             for (int i = 0; i < count && current; i++) {
                 if (current) {
-                    current->data.printData(); // Giả sử T là struct có hàm printData
+                    current->data.printData(false); // Giả sử T là struct có hàm printData
                     current = current->next;
                 } else
                     break;
@@ -56,18 +57,19 @@ struct List {
             cout << "\033[2K\r\033[1A\033[2K\r"; // Xóa 2 dòng
         }
     }
-    void display(function<bool(T)> predicate, int count = 10) {
+    void display(function<bool(T)> predicate, int count = 5) {
         if (!any()) {
             cout << "Danh sach trong!";
             return;
         }
         Node<T>* current = head;
+        current->data.printHeader();
         while (true) {
             for (int i = 0; i < count && current; i++) {
                 while (current) {
 					bool isFound = predicate(current->data);
                     if (isFound) {
-                        current->data.printData(); // Giả sử T là struct có hàm printData
+                        current->data.printData(false); // Giả sử T là struct có hàm printData
                     }
                     current = current->next;
                     if (isFound)
@@ -108,6 +110,20 @@ struct List {
         return &(current->data);
     }
 
+    // Tìm tốt nhất (Max/Min)
+    T* find(function<bool(T, T)> condition) {
+        if (!head) return nullptr;
+        Node<T>* best = head;
+        Node<T>* current = head->next;
+        while (current) {
+            if (condition(current->data, best->data)) {
+                best = current;
+            }
+            current = current->next;
+        }
+        return &(best->data);
+    }
+
     bool any() {
         return head != nullptr;
     }
@@ -124,7 +140,7 @@ struct List {
     }
 
     // Thêm vào cuối danh sách
-    void addLast(T item) {
+    void add(T item) {
         Node<T>* newNode = new Node<T>(item);
         if (!head) {
             // Danh sách rỗng: đầu và đuôi đều là node mới
@@ -151,8 +167,9 @@ struct List {
     }
 
     // Tính tổng
-    double sum(function<double(T)> selector) {
-        double total = 0;
+    template <typename R>
+    R sum(function<R(T)> selector) {
+        R total = 0;
         Node<T>* current = head;
         while (current) {
             total += selector(current->data);
@@ -172,31 +189,19 @@ struct List {
         return count;
     }
 
-    // Tìm tốt nhất (Max/Min)
-    T* findBest(function<bool(T, T)> isBetter) {
-        if (!head) return nullptr;
-        Node<T>* best = head;
-        Node<T>* current = head->next;
-        while (current) {
-            if (isBetter(current->data, best->data)) {
-                best = current;
-            }
-            current = current->next;
-        }
-        return &(best->data);
-    }
-
     // Xóa theo điều kiện 
-    void remove(function<bool(T)> predicate) {
+    bool remove(function<bool(T)> predicate) {
+		bool isRemoved = false;
         Node<T>* current = head;
         while (current) {
             Node<T>* nextNode = current->next; // Lưu lại node tiếp theo trước khi xử lý
             if (predicate(current->data)) {
                 // Logic xóa node current
-                remove(current);
+                isRemoved = remove(current);
             }
             current = nextNode; // Nhảy sang node tiếp theo
         }
+        return isRemoved;
     }
 
     bool remove(Node<T>* node) {
@@ -254,7 +259,7 @@ struct List {
         for (int i = 0; i < count; ++i) {
             T item; // Tạo đối tượng tạm
             item.deserialize(in); // Bảo nó tự đọc dữ liệu từ file
-            addLast(item); // Thêm vào list
+            add(item); // Thêm vào list
         }
         in.close();
     }
