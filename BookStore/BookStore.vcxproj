@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
     <ClCompile Include="BaseMenu.h" />
     <ClCompile Include="Book.h" />
     <ClCompile Include="Book.cpp" />
