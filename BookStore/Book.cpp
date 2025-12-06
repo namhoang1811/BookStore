@@ -3,44 +3,34 @@
 
 namespace {
     Book createEdit(Book& source, bool isCreate) {        
-        if (isCreate) {
-            cout << "Nhap Ma sach: ";
-            getline(cin, source.id);        
-        }
-        cout << "Nhap Ten sach: ";
-		Input::autoTyping(source.name);
-        getline(cin, source.name);
-        cout << "Nhap Tac gia: ";
-        Input::autoTyping(source.author);
-        getline(cin, source.author);
+        if (isCreate)
+            Input::in(source.id, "Nhap Ma sach: ", true);
+        Input::in(source.name, "Nhap Ten sach: ");
+        Input::in(source.author, "Nhap Tac gia: ");
         while (true) {
-            cout << "Nhap Nam XB: ";
             if (!isCreate)
                 Input::autoTyping(to_string(source.year));
-            try {                
-                source.year = stoi(Input::read());
+            try {     
+                string val = !isCreate ? to_string(source.year) : "";
+                source.year = stoi(Input::read("Nhap Nam XB: ", val, true));
                 if (source.year >= 0 && source.year <= DateTime::nowYear())
                     break;
             } catch(...){}
             Print::invalid();
         }
         while (true) {
-            cout << "Nhap Gia ban: ";
-            if (!isCreate)
-                Input::autoTyping(to_string(source.price));
-            try {                
-                source.price = stod(Input::read());
+            try {  
+                string val = !isCreate ? to_string(source.price) : "";
+                source.price = stod(Input::read("Nhap Gia ban: ", val, true));
                 if (source.price >= 0)
                     break;
             } catch (...) {}
             Print::invalid();
         }
-        while (true) {
-            cout << "Nhap So luong ton: ";
-            if (!isCreate)
-                Input::autoTyping(to_string(source.count));
-            try {                
-                source.count = stoi(Input::read());
+        while (true) {            
+            try {
+                string val = !isCreate ? to_string(source.count) : "";
+                source.count = stoi(Input::read("Nhap So luong ton: ", val, true));
                 if (source.count >= 0)
                     break;
             } catch (...) {}

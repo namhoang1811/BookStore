@@ -3,9 +3,8 @@
 namespace {
     Book* findAt(List<Book>& books) {
         while (true) {
-            cout << "Nhap thu tu Sach: ";
             try {
-                int position = stoi(Input::read());
+                int position = stoi(Input::read("Nhap thu tu Sach: ", true));
                 Book* result = books.findAt(position);
                 if (!result)
                     Print::warning(NOT_FOUND);
@@ -16,8 +15,7 @@ namespace {
         }
     }
     Book* findById(List<Book>& books) {        
-        cout << "Nhap ma Sach: ";
-        string id = Input::read();
+        string id = Input::read("Nhap ma Sach: ", true);
         Book* result = books.find([id](Book d) {
             return d.id == id;
             });
@@ -80,9 +78,8 @@ void BookMenu::show(List<Book>& books) {
         }
         case 4: {
             Print::title("TIM KIEM SACH THEO TEN");
-			string keyword;
-			cout << "Nhap ten sach can tim: ";			
-			keyword = Input::read();            
+			string keyword;		
+			keyword = Input::read("Nhap ten sach can tim: ", true);
             books.display([keyword](Book d) {
                 return d.id.find(keyword) != string::npos;
                 });
