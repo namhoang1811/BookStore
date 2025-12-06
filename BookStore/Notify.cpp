@@ -1,6 +1,5 @@
 ﻿#include <windows.h>
 #include "Notify.h"
-#include "Const.h"
 
 void Notify::primary(string message, int sleep) {
 	cout << BLUE << message << RESET << endl;
@@ -20,4 +19,9 @@ void Notify::warning(string message, int sleep) {
 void Notify::success(string message, int sleep) {
 	cout << GREEN << message << RESET << endl;
 	Sleep(sleep);
+}
+
+void Notify::invalid() {
+	warning(FIELD_INVALID, 1000);
+	Print::removeLine(3);
 }

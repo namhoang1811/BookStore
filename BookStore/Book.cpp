@@ -3,37 +3,48 @@
 
 namespace {
     Book createEdit(Book& source, bool isCreate) {        
-        // Xóa bộ nhớ đệm để tránh lệnh getline phía sau bị trôi
-        // (Do cin >> để lại dấu Enter trong bộ nhớ)
-        //cin.ignore();
         if (isCreate) {
             cout << "Nhap Ma sach: ";
             getline(cin, source.id);        
         }
         cout << "Nhap Ten sach: ";
+		Input::autoType(source.name);
         getline(cin, source.name);
         cout << "Nhap Tac gia: ";
+        Input::autoType(source.author);
         getline(cin, source.author);
         while (true) {
             cout << "Nhap Nam XB: ";
-            cin >> source.year;
-            if (source.year >= 0 && source.year <= DateTime::nowYear())
-                break;
-            Print::invalid();
+            try {
+                if(!isCreate)
+                    Input::autoType(to_string(source.year));
+                source.year = stoi(Input::read());
+                if (source.year >= 0 && source.year <= DateTime::nowYear())
+                    break;
+            } catch(...){}
+            Notify::invalid();
         }
         while (true) {
             cout << "Nhap Gia ban: ";
-            cin >> source.price;
-            if (source.price >= 0)
-                break;
-            Print::invalid();
+            try {
+                if (!isCreate)
+                    Input::autoType(to_string(source.price));
+                source.price = stod(Input::read());
+                if (source.price >= 0)
+                    break;
+            } catch (...) {}
+            Notify::invalid();
         }
         while (true) {
             cout << "Nhap So luong ton: ";
-            cin >> source.count;
-            if (source.count >= 0)
-                break;
-            Print::invalid();
+            try {
+                if (!isCreate)
+                    Input::autoType(to_string(source.count));
+                source.count = stoi(Input::read());
+                if (source.count >= 0)
+                    break;
+            } catch (...) {}
+            Notify::invalid();
         }
         return source;
     }

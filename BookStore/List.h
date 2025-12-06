@@ -1,9 +1,7 @@
 ﻿#pragma once
-#include <functional> // Để dùng lambda function
 #include <conio.h>   // Để dùng _getch()
+#include <functional> // Để dùng lambda function
 #include <iostream>
-#include "Print.h"
-
 
 using namespace std;
 
@@ -55,7 +53,7 @@ struct List {
             char k = _getch();
             if (!current || (int)k == 27) // Rỗng hoặc ấn ESC
                 break;
-            Print::removeLine(2);
+            cout << "\033[2K\r\033[1A\033[2K\r"; // Xóa 2 dòng
         }
     }
     void display(function<bool(T)> predicate, int count = 10) {
@@ -80,7 +78,7 @@ struct List {
             char k = _getch();
             if (!current || (int)k == 27) // Rỗng
                 break;
-            Print::removeLine(2);
+            cout << "\033[2K\r\033[1A\033[2K\r"; // Xóa 2 dòng
         }
     }
 

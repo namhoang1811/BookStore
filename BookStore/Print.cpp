@@ -1,7 +1,6 @@
 ﻿#include <windows.h>
 #include <conio.h> // Add this include for _getch
 #include "Print.h"
-#include "Const.h"
 
 
 namespace {
@@ -16,17 +15,13 @@ namespace {
 
 void Print::title(string name) {
     Print::clearScreen();
-    int length = name.length();
+    int length = static_cast<int>(name.length());
 	int half = (120 - length - 2) / 2;
 	equal(120, true);
     equal(half);
     cout << " " << name << " ";
     equal(half + length % 2, true);
     equal(120, true);
-}
-
-void Print::invalid() {
-	cout << "Nhap khong hop le. Vui long nhap lai!" << endl;
 }
 
 void Print::removeLine(int count) {

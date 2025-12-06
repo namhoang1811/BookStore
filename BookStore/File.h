@@ -6,7 +6,7 @@
 
 using namespace std;
 
-struct FileHelper {
+struct File {
 
     // --- PHẦN GHI (SAVE) ---
     // 1. Hàm ghi cơ bản cho các kiểu số (int, double, bool, char...)
@@ -16,7 +16,6 @@ struct FileHelper {
     }
 
     // 2. Hàm ghi đặc biệt dành riêng cho std::string
-    // (Lưu ý: Phải đúng là string nó mới nhảy vào đây)
     static void writeOne(ofstream& out, const string& s) {
         int len = (int)s.length();
         out.write((char*)&len, sizeof(int));      // Ghi độ dài

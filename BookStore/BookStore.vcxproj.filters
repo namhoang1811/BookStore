@@ -28,9 +28,6 @@
     <Filter Include="Source Files\Models">
       <UniqueIdentifier>{951e54ea-9098-4f32-b081-f7b9411e04e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Bases">
-      <UniqueIdentifier>{49f01565-aacf-4a51-8cb0-bf706d76ebef}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,9 +41,6 @@
     </ClCompile>
     <ClCompile Include="Print.cpp">
       <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="App.cpp">
-      <Filter>Resource Files\Bases</Filter>
     </ClCompile>
     <ClCompile Include="Book.h">
       <Filter>Header Files\Models</Filter>
@@ -63,6 +57,9 @@
     <ClCompile Include="Notify.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DateTime.h">
@@ -74,9 +71,6 @@
     <ClInclude Include="List.h">
       <Filter>Header Files\Bases</Filter>
     </ClInclude>
-    <ClInclude Include="App.h">
-      <Filter>Header Files\Bases</Filter>
-    </ClInclude>
     <ClInclude Include="BookMenu.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
@@ -86,8 +80,14 @@
     <ClInclude Include="Const.h">
       <Filter>Header Files\Bases</Filter>
     </ClInclude>
-    <ClInclude Include="FileHelper.h">
-      <Filter>Header Files\Helpers</Filter>
+    <ClInclude Include="App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>Header Files\Bases</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Bases</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

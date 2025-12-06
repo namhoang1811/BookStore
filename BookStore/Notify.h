@@ -1,5 +1,5 @@
 #pragma once 
-#include <iostream>
+#include "Print.h"
 
 using namespace std;
 
@@ -8,4 +8,5 @@ struct Notify {
     static void danger(string message, int sleep = 2000);
     static void warning(string message, int sleep = 2000);
     static void success(string message, int sleep = 2000);
+    static void invalid();
 };
