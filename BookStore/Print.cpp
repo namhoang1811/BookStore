@@ -52,3 +52,28 @@ void Print::pressAnyKey() {
     cout << endl << PRESS_ANY_KEY;
     char _ = _getch(); // Chờ bất một phím bất kỳ
 }
+
+void Print::primary(string message, int sleep) {
+    cout << BLUE << message << RESET << endl;
+    Sleep(sleep);
+}
+
+void Print::danger(string message, int sleep) {
+    cout << RED << message << RESET << endl;
+    Sleep(sleep);
+}
+
+void Print::warning(string message, int sleep) {
+    cout << YELLOW << message << RESET << endl;
+    Sleep(sleep);
+}
+
+void Print::success(string message, int sleep) {
+    cout << GREEN << message << RESET << endl;
+    Sleep(sleep);
+}
+
+void Print::invalid() {
+    warning(FIELD_INVALID, 1000);
+    Print::removeLine(3);
+}

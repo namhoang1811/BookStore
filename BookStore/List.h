@@ -27,17 +27,19 @@ struct List {
         clear();
     }
 
-    void displayPress(Node<T>* node) {
+    char displayPress(Node<T>* node) {
         if (node) {
             cout << endl << "Nhan phim bat ky de xem tiep, ESC de thoat...";
         } else {
             cout << endl << "Nhan PHIM bat ky de thoat...";
-        }        
+        }
+        return _getch();
     }
     // Hiển thị danh sách
     void display(int count = 5) {
         if (!any()) {
-            cout << "Danh sach trong!";
+            cout << "Danh sach trong!" << endl;
+            displayPress(nullptr);
             return;
         }
         Node<T>* current = head;
@@ -49,9 +51,8 @@ struct List {
                     current = current->next;
                 } else
                     break;
-            }
-			displayPress(current);
-            char k = _getch();
+            }			
+            char k = displayPress(current);
             if (!current || (int)k == 27) // Rỗng hoặc ấn ESC
                 break;
             cout << "\033[2K\r\033[1A\033[2K\r"; // Xóa 2 dòng
@@ -59,7 +60,8 @@ struct List {
     }
     void display(function<bool(T)> predicate, int count = 5) {
         if (!any()) {
-            cout << "Danh sach trong!";
+            cout << "Danh sach trong!" << endl;
+			displayPress(nullptr);
             return;
         }
         Node<T>* current = head;
@@ -75,9 +77,8 @@ struct List {
                     if (isFound)
                         break;
                 }
-            }
-            displayPress(current);
-            char k = _getch();
+            }            
+            char k = displayPress(current);
             if (!current || (int)k == 27) // Rỗng
                 break;
             cout << "\033[2K\r\033[1A\033[2K\r"; // Xóa 2 dòng

@@ -2,25 +2,27 @@
 
 namespace {
     Book* findAt(List<Book>& books) {
-		int position;
-        cout << "Nhap thu tu Sach: ";
-        cin >> position;
-        cin.ignore(); // Xóa bộ nhớ đệm dấu Enter (\n)
-        Book* result = books.findAt(position);
-        if (!result) 
-            Notify::warning(NOT_FOUND);
-        return result;
+        while (true) {
+            cout << "Nhap thu tu Sach: ";
+            try {
+                int position = stoi(Input::read());
+                Book* result = books.findAt(position);
+                if (!result)
+                    Print::warning(NOT_FOUND);
+                return result;
+            } catch (...) {
+				Print::removeLine(2);
+            }
+        }
     }
-    Book* findById(List<Book>& books) {
-        string id;
+    Book* findById(List<Book>& books) {        
         cout << "Nhap ma Sach: ";
-		cin >> id;
-		cin.ignore(); // Xóa bộ nhớ đệm dấu Enter (\n) 
+        string id = Input::read();
         Book* result = books.find([id](Book d) {
             return d.id == id;
             });
         if (!result)
-            Notify::warning(NOT_FOUND);
+            Print::warning(NOT_FOUND);
         return result;
     }
 }
@@ -61,9 +63,9 @@ void BookMenu::show(List<Book>& books) {
             if (!isAny) {
                 books.add(model);
 				books.saveFile();
-                Notify::success(ACTIVE_SUCCESS);
+                Print::success(ACTIVE_SUCCESS);
             } else {
-                Notify::danger("Them sach moi that bai do trung Ma");
+                Print::danger("Them sach moi that bai do trung Ma");
             }
             break;
         }
@@ -79,9 +81,8 @@ void BookMenu::show(List<Book>& books) {
         case 4: {
             Print::title("TIM KIEM SACH THEO TEN");
 			string keyword;
-			cout << "Nhap ten sach can tim: ";
-			cin.ignore();
-			getline(cin, keyword);
+			cout << "Nhap ten sach can tim: ";			
+			keyword = Input::read();            
             books.display([keyword](Book d) {
                 return d.id.find(keyword) != string::npos;
                 });
@@ -114,7 +115,7 @@ void BookMenu::show(List<Book>& books) {
             books.sort([](Book a, Book b) {
                 return a.price > b.price;
                 });
-            Notify::success(ACTIVE_SUCCESS, 1000);
+            Print::success(ACTIVE_SUCCESS, 1000);
             Print::removeLine(2);
             books.display();
             break;
@@ -124,7 +125,7 @@ void BookMenu::show(List<Book>& books) {
             books.sort([](Book a, Book b) {
                 return a.price < b.price;
                 });
-            Notify::success(ACTIVE_SUCCESS, 1000);
+            Print::success(ACTIVE_SUCCESS, 1000);
             Print::removeLine(2);
             books.display();
             break;
@@ -168,7 +169,7 @@ void BookMenu::show(List<Book>& books) {
                 Print::title("CHINH SUA SACH: " + data->name);
                 Book::edit(*data);
                 books.saveFile();
-				Notify::success(ACTIVE_SUCCESS);
+                Print::success(ACTIVE_SUCCESS);
             }
             break;
         }
@@ -179,7 +180,7 @@ void BookMenu::show(List<Book>& books) {
                 Print::title("CHINH SUA SACH: " + data->name);
                 Book::edit(*data);
                 books.saveFile();
-                Notify::success(ACTIVE_SUCCESS);
+                Print::success(ACTIVE_SUCCESS);
             }
             break;
         }
@@ -191,7 +192,7 @@ void BookMenu::show(List<Book>& books) {
                     return d.id == data->id;
                     });
                 if (isDeleted) {
-                    Notify::success(ACTIVE_SUCCESS);
+                    Print::success(ACTIVE_SUCCESS);
                     books.saveFile();
                 }
             }
@@ -205,7 +206,7 @@ void BookMenu::show(List<Book>& books) {
                     return d.id == data->id;
                     });
                 if (isDeleted) {
-                    Notify::success(ACTIVE_SUCCESS);
+                    Print::success(ACTIVE_SUCCESS);
                     books.saveFile();
                 }
             }

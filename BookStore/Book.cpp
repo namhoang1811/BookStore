@@ -22,7 +22,7 @@ namespace {
                 if (source.year >= 0 && source.year <= DateTime::nowYear())
                     break;
             } catch(...){}
-            Notify::invalid();
+            Print::invalid();
         }
         while (true) {
             cout << "Nhap Gia ban: ";
@@ -33,7 +33,7 @@ namespace {
                 if (source.price >= 0)
                     break;
             } catch (...) {}
-            Notify::invalid();
+            Print::invalid();
         }
         while (true) {
             cout << "Nhap So luong ton: ";
@@ -44,7 +44,7 @@ namespace {
                 if (source.count >= 0)
                     break;
             } catch (...) {}
-            Notify::invalid();
+            Print::invalid();
         }
         return source;
     }
