@@ -7,7 +7,6 @@
 using namespace std;
 
 struct File {
-
     // --- PHẦN GHI (SAVE) ---
     // 1. Hàm ghi cơ bản cho các kiểu số (int, double, bool, char...)
     template <typename T>

@@ -7,6 +7,7 @@
 #define CYAN    "\033[36m"  // Màu xanh lơ
 #define RESET   "\033[0m"   // Trả về màu trắng mặc định
 
+// Các hằng số sử dụng trong chương trình
 #define NOT_FOUND "Khong tim thay!"  
 #define PRESS_OPTION "Bam phim lua chon: " 
 #define PRESS_ANY_KEY "Nhan PHIM bat ky de thoat..."

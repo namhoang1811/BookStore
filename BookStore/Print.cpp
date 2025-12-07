@@ -1,5 +1,5 @@
 ﻿#include <windows.h>
-#include <conio.h> // Add this include for _getch
+#include <conio.h> // Thư viện lệnh _getch
 #include "Print.h"
 
 namespace {

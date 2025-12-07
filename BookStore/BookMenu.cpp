@@ -130,21 +130,21 @@ void BookMenu::show(List<Book>& books) {
         case 9: {
             Print::title("THONG KE SACH CO SO LUONG > 10");
             books.display([](Book d) {
-                return d.count > 10;
+                return d.quantity > 10;
                 });
             break;
 		}
         case 17: case 49: { // A
             Print::title("THONG KE SACH DA HET HANG");
             books.display([](Book d) {
-                return d.count == 0;
+                return d.quantity == 0;
                 });
             break;
 		}
         case 18: case 50: { // B
             Print::title("TINH TONG SO LUONG SACH CON TON KHO");
             int total = books.sum<int>([](Book d) {
-                return d.count;
+                return d.quantity;
                 });
             cout << "Tong so luong sach con ton kho: " << total << endl;
             Print::pressAnyKey();

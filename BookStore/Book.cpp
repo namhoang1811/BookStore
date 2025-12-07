@@ -2,6 +2,7 @@
 #include "DateTime.h"
 
 namespace {
+	// Hàm dùng chung cho tạo và chỉnh sửa
     Book createEdit(Book& source, bool isCreate) {        
         if (isCreate)
             Input::in(source.id, "Nhap Ma sach: ", true);
@@ -29,9 +30,9 @@ namespace {
         }
         while (true) {            
             try {
-                string val = !isCreate ? to_string(source.count) : "";
-                source.count = stoi(Input::read("Nhap So luong ton: ", val, true));
-                if (source.count >= 0)
+                string val = !isCreate ? to_string(source.quantity) : "";
+                source.quantity = stoi(Input::read("Nhap So luong ton: ", val, true));
+                if (source.quantity >= 0)
                     break;
             } catch (...) {}
             Print::invalid();

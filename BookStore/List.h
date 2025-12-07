@@ -47,7 +47,7 @@ struct List {
         while (true) {
             for (int i = 0; i < count && current; i++) {
                 if (current) {
-                    current->data.printData(false); // Giả sử T là struct có hàm printData
+                    current->data.printData(false); // T là struct có hàm printData
                     current = current->next;
                 } else
                     break;
@@ -71,7 +71,7 @@ struct List {
                 while (current) {
 					bool isFound = predicate(current->data);
                     if (isFound) {
-                        current->data.printData(false); // Giả sử T là struct có hàm printData
+                        current->data.printData(false); // T là struct có hàm printData
                     }
                     current = current->next;
                     if (isFound)
@@ -96,6 +96,7 @@ struct List {
         return nullptr;
     }
 
+	// Tìm kiếm phần tử tại vị trí
     T* findAt(int position) {
         if(position < 1)
 			return nullptr;
@@ -111,7 +112,7 @@ struct List {
         return &(current->data);
     }
 
-    // Tìm tốt nhất (Max/Min)
+    // Tìm theo điều kiện (Max/Min)
     T* find(function<bool(T, T)> condition) {
         if (!head) return nullptr;
         Node<T>* best = head;
@@ -125,10 +126,12 @@ struct List {
         return &(best->data);
     }
 
+	// Kiểm tra tồn tại
     bool any() {
         return head != nullptr;
     }
 
+	// Kiểm tra tồn tại theo điều kiện
     bool any(function<bool(T)> predicate) {
         bool found = false;
         Node<T>* current = head;
@@ -167,7 +170,7 @@ struct List {
         }
     }
 
-    // Tính tổng
+	// Tính tổng theo điều kiện
     template <typename R>
     R sum(function<R(T)> selector) {
         R total = 0;
@@ -179,7 +182,7 @@ struct List {
         return total;
     }
 
-    // Đếm
+	// Đếm theo điều kiện
     int count(function<bool(T)> predicate) {
         int count = 0;
         Node<T>* current = head;
@@ -205,6 +208,7 @@ struct List {
         return isRemoved;
     }
 
+	// Xóa node cụ thể
     bool remove(Node<T>* node) {
         if (node) {
             // 1. Xử lý liên kết với node trước (prev)
@@ -267,7 +271,7 @@ struct List {
 
     string getName() {
         string name = typeid(T).name();
-        // Tìm vị trí khoảng trắng cuối cùng (để bỏ qua chữ struct/class)
+        // Tìm vị trí khoảng trắng cuối cùng (để bỏ qua chữ struct)
         // Trong Visual Studio, nó thường là "struct TenClass"
         size_t lastSpace = name.find_last_of(' ');
         if (lastSpace != string::npos) {

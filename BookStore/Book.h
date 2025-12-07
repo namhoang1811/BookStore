@@ -5,7 +5,7 @@ struct Book : Base {
     string author;
     int year;
     double price;
-    int count;
+    int quantity;
 
     void printHeader() {
         cout << left << setw(10) << "MA" << setw(30) << "TEN SACH" << setw(30) << "TAC GIA" << setw(10) << "NAM" << setw(15) << "GIA" << setw(15) << "SO LUONG" << endl;
@@ -13,20 +13,20 @@ struct Book : Base {
     void printData(bool isHeader = true) {
         if(isHeader)
 			printHeader();
-        cout << left << setw(10) << id << setw(30) << name << setw(30) << author << setw(10) << year << setw(15) << price << setw(15) << count << endl;
+        cout << left << setw(10) << id << setw(30) << name << setw(30) << author << setw(10) << year << setw(15) << price << setw(15) << quantity << endl;
     }
     static Book create();
     static void edit(Book& source);
 
-    // --- GHI FILE TỔNG QUAN ---
+    // --- GHI FILE ---
     void serialize(ofstream& out) {
-        // Chỉ cần liệt kê các biến muốn lưu theo đúng thứ tự
-        File::save(out, id, name, author, year, price, count);
+        // Liệt kê các biến muốn lưu theo đúng thứ tự
+        File::save(out, id, name, author, year, price, quantity);
     }
 
-    // --- ĐỌC FILE TỔNG QUAN ---
+    // --- ĐỌC FILE ---
     void deserialize(ifstream& in) {
         // Liệt kê y hệt như lúc ghi
-        File::load(in, id, name, author, year, price, count);
+        File::load(in, id, name, author, year, price, quantity);
     }
 };

@@ -39,7 +39,7 @@ struct Input {
         }
         DWORD written;
         HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
-        // Ép kiểu (DWORD) để sửa cảnh báo warning C4267 luôn
+        // Ép kiểu (DWORD) để sửa cảnh báo warning C4267
         WriteConsoleInput(hInput, &events[0], (DWORD)events.size(), &written);
     }
 };
