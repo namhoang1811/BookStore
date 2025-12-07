@@ -18,7 +18,7 @@ struct App {
             char k = _getch();
             switch ((int)k - 48) {
             case 1: BookMenu::show(books); break;
-            case 0:
+            case 0: case -21: // 0 or ESC
                 Print::removeLine(1);
                 cout << "Cam on da su dung chuong trinh!" << endl;
                 return;

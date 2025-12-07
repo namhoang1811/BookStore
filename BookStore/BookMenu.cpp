@@ -189,8 +189,8 @@ void BookMenu::show(List<Book>& books) {
                     return d.id == data->id;
                     });
                 if (isDeleted) {
-                    Print::success(ACTIVE_SUCCESS);
                     books.saveFile();
+                    Print::success(ACTIVE_SUCCESS);
                 }
             }
             break;
@@ -202,14 +202,14 @@ void BookMenu::show(List<Book>& books) {
                 bool isDeleted = books.remove([data](Book d) {
                     return d.id == data->id;
                     });
-                if (isDeleted) {
-                    Print::success(ACTIVE_SUCCESS);
+                if (isDeleted) {                    
                     books.saveFile();
+                    Print::success(ACTIVE_SUCCESS);
                 }
             }
             break;
         }
-        case 0:
+        case 0: case -21: // 0 or ESC
             return;
         }
     }

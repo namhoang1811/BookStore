@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <functional> // Add this include for std::function
 
 using namespace std;
 

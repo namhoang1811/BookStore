@@ -2,7 +2,6 @@
 #include <conio.h> // Add this include for _getch
 #include "Print.h"
 
-
 namespace {
     void equal(int count, bool isEnd = false) {
         for (int i = 0; i < count; i++) {
