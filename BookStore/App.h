@@ -3,7 +3,7 @@
 
 struct App {
     List<Book> books;
-    // List<Staff> listStaff;
+    // List<Staff> staffs;
 
     void menu() {
         while (true) {
