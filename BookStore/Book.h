@@ -7,25 +7,26 @@ struct Book : Base {
     double price;
     int quantity;
 
-    void printHeader() {
+    static Book create();
+    static void edit(Book& source);
+
+    void printHeader() override {
         cout << left << setw(10) << "MA" << setw(30) << "TEN SACH" << setw(30) << "TAC GIA" << setw(10) << "NAM" << setw(15) << "GIA" << setw(15) << "SO LUONG" << endl;
     }
-    void printData(bool isHeader = true) {
+    void printData(bool isHeader = true) override {
         if(isHeader)
 			printHeader();
         cout << left << setw(10) << id << setw(30) << name << setw(30) << author << setw(10) << year << setw(15) << price << setw(15) << quantity << endl;
     }
-    static Book create();
-    static void edit(Book& source);
 
     // --- GHI FILE ---
-    void serialize(ofstream& out) {
+    void serialize(ofstream& out) override {
         // Liệt kê các biến muốn lưu theo đúng thứ tự
         File::save(out, id, name, author, year, price, quantity);
     }
 
     // --- ĐỌC FILE ---
-    void deserialize(ifstream& in) {
+    void deserialize(ifstream& in) override {
         // Liệt kê y hệt như lúc ghi
         File::load(in, id, name, author, year, price, quantity);
     }

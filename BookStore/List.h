@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// 1. Cấu trúc Node cho liên kết kép
+// 1. Cấu trúc Node cho liên kết đôi
 template <typename T>
 struct Node {
     T data;
@@ -27,6 +27,7 @@ struct List {
         clear();
     }
 
+	// Hiển thị và chờ phím
     char displayPress(Node<T>* node) {
         if (node) {
             cout << endl << "Nhan phim bat ky de xem tiep, ESC de thoat...";
@@ -58,6 +59,8 @@ struct List {
             cout << "\033[2K\r\033[1A\033[2K\r"; // Xóa 2 dòng
         }
     }
+
+	// Hiển thị theo điều kiện
     void display(function<bool(T)> predicate, int count = 5) {
         if (!any()) {
             cout << "Danh sach trong!" << endl;
@@ -269,6 +272,7 @@ struct List {
         in.close();
     }
 
+	// Lấy tên kiểu T dưới dạng chuỗi
     string getName() {
         string name = typeid(T).name();
         // Tìm vị trí khoảng trắng cuối cùng (để bỏ qua chữ struct)
@@ -281,6 +285,7 @@ struct List {
         return name; // Nếu không có khoảng trắng thì trả về nguyên gốc
     }
 
+	// Xóa toàn bộ danh sách
     void clear() {
         Node<T>* current = head;
         while (current) {

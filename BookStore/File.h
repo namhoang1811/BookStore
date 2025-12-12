@@ -38,7 +38,7 @@ struct File {
         in.read((char*)&value, sizeof(T));
     }
 
-    // 2. Hàm đọc đặc biệt cho std::string
+	// 2. Hàm đọc đặc biệt dành riêng cho std::string
     static void readOne(ifstream& in, string& s) {
         int len = 0;
         in.read((char*)&len, sizeof(int));        // Đọc độ dài
