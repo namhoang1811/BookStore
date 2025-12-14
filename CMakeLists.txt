@@ -18,10 +18,6 @@ add_executable(BookStore
         BookStore/Customer.h
         BookStore/CustomerMenu.cpp
         BookStore/CustomerMenu.h
-        BookStore/Invoice.cpp
-        BookStore/Invoice.h
-        BookStore/InvoiceMenu.cpp
-        BookStore/InvoiceMenu.h
         BookStore/Staff.cpp
         BookStore/Staff.h
         BookStore/StaffMenu.cpp
