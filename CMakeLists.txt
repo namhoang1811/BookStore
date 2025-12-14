@@ -31,3 +31,21 @@ add_executable(BookStore
         BookStore/main.cpp
         BookStore/Print.cpp
         BookStore/Print.h)
+
+# Test executable for Customer struct
+add_executable(CustomerTest
+        BookStore/CustomerTest.cpp
+        BookStore/Customer.cpp
+        BookStore/Customer.h
+        BookStore/Base.cpp
+        BookStore/Base.h
+        BookStore/DateTime.cpp
+        BookStore/DateTime.h
+        BookStore/Print.cpp
+        BookStore/Print.h
+        BookStore/File.h
+        BookStore/Input.h
+        BookStore/Const.h)
+
+enable_testing()
+add_test(NAME CustomerTest COMMAND CustomerTest)
