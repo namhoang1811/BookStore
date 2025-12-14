@@ -1,4 +1,5 @@
 ﻿#include "Base.h"
+#include "Book.h"
 #include <fstream>
 
 // --- HÀM HỖ TRỢ GHI CHUỖI ---
@@ -23,30 +24,4 @@ void readString(ifstream& in, string& s) {
     else {
         s = "";
     }
-}
-
-// --- TRIỂN KHAI CHO BOOK ---
-
-void Book::serialize(ofstream& out) {
-    // 1. Ghi các chuỗi (Dùng hàm hỗ trợ)
-    writeString(out, id);     // id thừa hưởng từ Base hoặc khai báo trong Book
-    writeString(out, name);
-    writeString(out, author);
-
-    // 2. Ghi các số (Ghi trực tiếp được)
-    out.write((char*)&year, sizeof(int));
-    out.write((char*)&price, sizeof(double));
-    out.write((char*)&count, sizeof(int));
-}
-
-void Book::deserialize(ifstream& in) {
-    // 1. Đọc chuỗi (Phải đúng thứ tự như lúc ghi)
-    readString(in, id);
-    readString(in, name);
-    readString(in, author);
-
-    // 2. Đọc số
-    in.read((char*)&year, sizeof(int));
-    in.read((char*)&price, sizeof(double));
-    in.read((char*)&count, sizeof(int));
 }

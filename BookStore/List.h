@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include <conio.h>   // Để dùng _getch()
 #include <functional> // Để dùng lambda function
 #include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -34,7 +34,8 @@ struct List {
         } else {
             cout << endl << "Nhan PHIM bat ky de thoat...";
         }
-        return _getch();
+        int ch = std::getchar();
+        return static_cast<char>(ch == EOF ? '\n' : ch);
     }
     // Hiển thị danh sách
     void display(int count = 5) {

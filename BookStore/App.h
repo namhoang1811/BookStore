@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "BookMenu.h"
+#include <limits>
 
 struct App {
     List<Book> books;
@@ -15,7 +16,9 @@ struct App {
             cout << "5. Thong tin" << endl;
             cout << "0. Thoat" << endl;
             cout << endl << PRESS_OPTION;
-            char k = _getch();
+            char k;
+            cin >> k;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             switch ((int)k - 48) {
             case 1: BookMenu::show(books); break;
             case 0: case -21: // 0 or ESC
