@@ -9,6 +9,28 @@ struct Input {
     static void in(string& value, string label, bool isRequired = false) {
 		value = read(label, value, isRequired);
     }
+	// Nhập số nguyên với validate
+    static void in(int& value, string label, bool isRequired = false) {
+        string temp;
+        bool valid = false;
+        do {
+            temp = read(label, value > 0 ? to_string(value) : "", isRequired);
+            if (temp.empty() && !isRequired) {
+                return;
+            }
+            try {
+                int num = stoi(temp);
+                if (num >= 0) {
+                    value = num;
+                    valid = true;
+                } else {
+                    cout << "Vui long nhap so nguyen khong am!" << endl;
+                }
+            } catch (...) {
+                cout << "Vui long nhap so nguyen hop le!" << endl;
+            }
+        } while (!valid);
+    }
 	// Nhập với trả về
     static string read(string label, bool isRequired = false) {
 		return read(label, "", isRequired);

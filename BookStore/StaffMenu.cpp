@@ -41,6 +41,7 @@ void StaffMenu::show(List<Staff>& staffs) {
         cout << "6. Chinh sua Nhan Vien theo Ma" << endl;
         cout << "7. Xoa Nhan Vien theo thu tu" << endl;
         cout << "8. Xoa Nhan Vien theo Ma" << endl;
+        cout << "9. Sap xep theo Luong tang dan" << endl;
         cout << "0. Tro ve" << endl;
         cout << endl << PRESS_OPTION;
         char k;
@@ -124,6 +125,12 @@ void StaffMenu::show(List<Staff>& staffs) {
                 staffs.saveFile();
                 Print::success(DELETE_SUCCESS);
             }
+            break;
+        }
+        case 9: {
+            Print::title("SAP XEP THEO LUONG TANG DAN");
+            staffs.sort(Staff::sortBySalaryAsc);
+            staffs.display();
             break;
         }
         case 0: case -21: // 0 or ESC

@@ -4,10 +4,14 @@
 struct Staff : Base {
     string phone;
     string position;
-    string salary;
+    int salary = 0;
 
     static Staff create();
     static void edit(Staff& source);
+
+    // Sắp xếp theo lương
+    static bool sortBySalaryAsc(Staff a, Staff b);
+    static bool sortBySalaryDesc(Staff a, Staff b);
 
     void printHeader() override {
         cout << left << setw(10) << "MA" << setw(30) << "TEN NV" << setw(20) << "DIEN THOAI" << setw(20) << "CHUC VU" << setw(15) << "LUONG" << endl;

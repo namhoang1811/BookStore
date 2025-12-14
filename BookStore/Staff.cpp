@@ -16,3 +16,13 @@ void Staff::edit(Staff& source) {
     Input::in(source.position, "Nhap Chuc vu: ");
     Input::in(source.salary, "Nhap Luong: ");
 }
+
+// Sắp xếp theo lương tăng dần
+bool Staff::sortBySalaryAsc(Staff a, Staff b) {
+    return a.salary > b.salary;
+}
+
+// Sắp xếp theo lương giảm dần
+bool Staff::sortBySalaryDesc(Staff a, Staff b) {
+    return a.salary < b.salary;
+}
