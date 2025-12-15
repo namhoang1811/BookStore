@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "Input.h"
 #include "Print.h"
 #include "File.h"
 #include <string>

@@ -45,6 +45,7 @@ void Print::pressAnyKey() {
         cin.get();
     }
     cin.get();
+    char _ = Input::getch(); // Chờ bất một phím bất kỳ
 }
 
 void Print::primary(string message, int sleep) {

@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <vector>
 #endif
+#include "Const.h"
 #include <iostream>
 #include <string>
 

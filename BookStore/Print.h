@@ -1,5 +1,5 @@
 ﻿#pragma once 
-#include "Const.h"
+#include "Input.h"
 #include <iostream>
 
 using namespace std;
