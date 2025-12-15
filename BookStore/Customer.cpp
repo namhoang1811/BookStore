@@ -3,9 +3,9 @@
 
 namespace {
 	int randomInt(int from, int to) {
-        std::random_device rd;  // Nguồn số ngẫu nhiên
-        std::mt19937 gen(rd()); // Máy phát số ngẫu nhiên
-        std::uniform_int_distribution<> distr(from, to); // Phân phối đều
+        random_device rd;  // Nguồn số ngẫu nhiên
+        mt19937 gen(rd()); // Máy phát số ngẫu nhiên
+        uniform_int_distribution<> distr(from, to); // Phân phối đều
         return distr(gen);
     }
 

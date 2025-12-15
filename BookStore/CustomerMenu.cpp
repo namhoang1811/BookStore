@@ -146,20 +146,20 @@ void CustomerMenu::show(List<Customer>& customers) {
             break;
         }
         case 18: case 50: { // B
-            Print::title("TINH TONG SO LUONG SACH CON TON KHO");
+            Print::title("TINH TONG SO DIEM TICH LUY CUA TAT CA KHACH HANG");
             int total = customers.sum<int>([](Customer d) {
                 return d.points;
                 });
-            cout << "Tong so luong sach con ton kho: " << total << endl;
+            cout << "Tong so diem tich luy: " << total << endl;
             Print::pressAnyKey();
             break;
         }
         case 19: case 51: { // C
-            Print::title("TINH TB GIA BAN CAC CUON SACH KHAC NHAU");
-            double average = customers.sum<int>([](Customer d) {
+            Print::title("TINH TB DIEM TICH LUY CUA TAT CA KHACH HANG");
+            int average = customers.sum<int>([](Customer d) {
                 return d.points;
                 }) / customers.size;
-            cout << "Trung binh gia ban cac cuon sach khac nhau: " << average << endl;
+            cout << "Trung binh diem tich luy: " << average << endl;
             Print::pressAnyKey();
             break;
         }

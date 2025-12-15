@@ -104,6 +104,12 @@
     <ClInclude Include="StaffMenu.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
+    <ClInclude Include="Invoice.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="InvoiceMenu.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

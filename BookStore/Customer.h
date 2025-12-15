@@ -19,10 +19,10 @@ struct Customer : Base {
     }
 
     void serialize(ofstream& out) override {
-        File::save(out, id, name, phone, address);
+        File::save(out, id, name, points, phone, address);
     }
 
     void deserialize(ifstream& in) override {
-        File::load(in, id, name, phone, address);
+        File::load(in, id, name, points, phone, address);
     }
 };

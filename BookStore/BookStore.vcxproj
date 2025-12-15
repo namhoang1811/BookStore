@@ -150,6 +150,8 @@
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Invoice.h" />
+    <ClInclude Include="InvoiceMenu.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Staff.h" />
     <ClInclude Include="StaffMenu.h" />
