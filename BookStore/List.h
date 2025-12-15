@@ -34,8 +34,7 @@ struct List {
         } else {
             cout << endl << "Nhan PHIM bat ky de thoat...";
         }
-        int ch = std::getchar();
-        return static_cast<char>(ch == EOF ? '\n' : ch);
+        int ch = Input::getch();
     }
     // Hiển thị danh sách
     void display(int count = 5) {
