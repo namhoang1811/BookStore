@@ -41,10 +41,6 @@ void Print::clearScreen() {
 
 void Print::pressAnyKey() {
     cout << endl << PRESS_ANY_KEY;
-    if (cin.peek() == '\n') {
-        cin.get();
-    }
-    cin.get();
     char _ = Input::getch(); // Chờ bất một phím bất kỳ
 }
 
