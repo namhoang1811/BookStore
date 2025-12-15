@@ -3,5 +3,8 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="BookStore/README.md" />
+  </Folder>
   <Project Path="BookStore/BookStore.vcxproj" Id="e128f806-cfe1-4a83-b22a-739ff5992325" />
 </Solution>
