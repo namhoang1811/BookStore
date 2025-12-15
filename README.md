@@ -41,7 +41,7 @@ Dự án tích hợp sẵn bộ Unit Test để đảm bảo tính đúng đắn
 
 ## 📝 License
 
-Dự án này là dự án nội bộ để học tập
+Dự án nội bộ để học tập của đại học Mở Hà Nội - HOU
 
 * * *
 
