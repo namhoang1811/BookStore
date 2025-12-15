@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <conio.h>
 #include <vector>
-#else
 #endif
 #include <iostream>
 #include <string>
@@ -103,7 +102,7 @@ struct Input {
         WriteConsoleInput(hInput, &events[0], (DWORD)events.size(), &written);
 #else
         // In sẵn giá trị gợi ý để người dùng chỉnh sửa nếu cần
-        cout << "(" << source << ")";
+        cout << "(" << source << ") ";
 #endif        
     }
 };

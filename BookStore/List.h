@@ -1,4 +1,7 @@
 ﻿#pragma once
+#if defined(_WIN32) || defined(_WIN64)
+#include <conio.h>
+#endif
 #include <functional> // Để dùng lambda function
 #include <iostream>
 #include <cstdio>
@@ -34,8 +37,21 @@ struct List {
         } else {
             cout << endl << "Nhan PHIM bat ky de thoat...";
         }
-        int ch = Input::getch();
+#if defined(_WIN32) || defined(_WIN64)
+        // Trên Windows: Gọi hàm có sẵn
+        return _getch();
+#else
+        struct termios oldt, newt;
+        tcgetattr(STDIN_FILENO, &oldt); // Lấy thuộc tính cũ
+        newt = oldt;
+        newt.c_lflag &= ~(ICANON | ECHO); // Tắt buffer và echo
+        tcsetattr(STDIN_FILENO, TCSANOW, &newt); // Áp dụng ngay
+        int ch = getchar(); // Đọc phím
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // Trả lại thuộc tính cũ
+        return ch;
+#endif
     }
+
     // Hiển thị danh sách
     void display(int count = 5) {
         if (!any()) {
