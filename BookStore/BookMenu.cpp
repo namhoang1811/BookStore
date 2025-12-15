@@ -46,9 +46,7 @@ void BookMenu::show(List<Book>& books) {
         cout << "G. Xoa Sach theo Ma" << endl;
         cout << "0. Tro ve" << endl;
         cout << endl << PRESS_OPTION;
-        char k;
-        cin >> k;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        char k = Input::getch();
         switch ((int)k - 48) {
         case 1:
             Print::title("DANH SACH SACH");

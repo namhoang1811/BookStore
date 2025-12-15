@@ -19,9 +19,7 @@ struct App {
             cout << "5. Thong tin" << endl;
             cout << "0. Thoat" << endl;
             cout << endl << PRESS_OPTION;
-            char k;
-            cin >> k;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            char k = Input::getch();
             switch ((int)k - 48) {
             case 1: BookMenu::show(books); break;
             case 2: StaffMenu::show(staffs); break;

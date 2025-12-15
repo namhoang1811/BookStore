@@ -28,7 +28,7 @@ namespace {
             } catch (...) {}
             Print::invalid();
         }
-        while (true) {            
+        while (true) {
             try {
                 string val = !isCreate ? to_string(source.quantity) : "";
                 source.quantity = stoi(Input::read("Nhap So luong ton: ", val, true));

@@ -32,6 +32,9 @@ void Print::removeLine(int count) {
 }
 
 void Print::clearScreen() {
+    // \033: Ký tự ESC (Escape).
+    // [2J: Lệnh xóa toàn bộ màn hình.
+    // [H: Lệnh đưa con trỏ về vị trí Home (0,0).
     cout << "\033[2J\033[H";
     cout.flush();
 }

@@ -44,9 +44,7 @@ void StaffMenu::show(List<Staff>& staffs) {
         cout << "9. Sap xep theo Luong tang dan" << endl;
         cout << "0. Tro ve" << endl;
         cout << endl << PRESS_OPTION;
-        char k;
-        cin >> k;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        char k = Input::getch();
         switch ((int)k - 48) {
         case 1:
             Print::title("DANH SACH NHAN VIEN");
@@ -62,8 +60,7 @@ void StaffMenu::show(List<Staff>& staffs) {
                 staffs.add(model);
                 staffs.saveFile();
                 Print::success(ACTIVE_SUCCESS);
-            }
-            else {
+            } else {
                 Print::danger("Them Nhan Vien moi that bai do trung Ma");
             }
             break;
