@@ -13,3 +13,5 @@
 #define PRESS_ANY_KEY "Nhan PHIM bat ky de thoat..."
 #define ACTIVE_SUCCESS "Thao tac thanh cong..."
 #define FIELD_INVALID "Nhap khong hop le. Vui long nhap lai!"  
+#define EDIT_SUCCESS "Chinh sua thanh cong..."
+#define DELETE_SUCCESS "Xoa thanh cong..."

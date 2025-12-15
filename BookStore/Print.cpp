@@ -1,5 +1,5 @@
-﻿#include <windows.h>
-#include <conio.h> // Thư viện lệnh _getch
+﻿#include <chrono>
+#include <thread>
 #include "Print.h"
 
 namespace {
@@ -32,44 +32,36 @@ void Print::removeLine(int count) {
 }
 
 void Print::clearScreen() {
-    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD coord = { 0, 0 };
-    DWORD count;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    // Lấy thông tin về kích thước màn hình hiện tại
-    if (GetConsoleScreenBufferInfo(hStdOut, &csbi)) {
-        // Ghi khoảng trắng (space) lên toàn bộ màn hình
-        FillConsoleOutputCharacter(hStdOut, ' ', csbi.dwSize.X * csbi.dwSize.Y, coord, &count);
-        // Đặt lại thuộc tính văn bản (màu sắc)
-        FillConsoleOutputAttribute(hStdOut, csbi.wAttributes, csbi.dwSize.X * csbi.dwSize.Y, coord, &count);
-        // Đưa con trỏ về vị trí (0, 0)
-        SetConsoleCursorPosition(hStdOut, coord);
-    }
+    cout << "\033[2J\033[H";
+    cout.flush();
 }
 
 void Print::pressAnyKey() {
     cout << endl << PRESS_ANY_KEY;
-    char _ = _getch(); // Chờ bất một phím bất kỳ
+    if (cin.peek() == '\n') {
+        cin.get();
+    }
+    cin.get();
 }
 
 void Print::primary(string message, int sleep) {
     cout << BLUE << message << RESET << endl;
-    Sleep(sleep);
+    std::this_thread::sleep_for(std::chrono::milliseconds(sleep));
 }
 
 void Print::danger(string message, int sleep) {
     cout << RED << message << RESET << endl;
-    Sleep(sleep);
+    std::this_thread::sleep_for(std::chrono::milliseconds(sleep));
 }
 
 void Print::warning(string message, int sleep) {
     cout << YELLOW << message << RESET << endl;
-    Sleep(sleep);
+    std::this_thread::sleep_for(std::chrono::milliseconds(sleep));
 }
 
 void Print::success(string message, int sleep) {
     cout << GREEN << message << RESET << endl;
-    Sleep(sleep);
+    std::this_thread::sleep_for(std::chrono::milliseconds(sleep));
 }
 
 void Print::invalid() {

@@ -1,9 +1,13 @@
 ﻿#pragma once
 #include "BookMenu.h"
+#include "CustomerMenu.h"
+#include "StaffMenu.h"
+#include <limits>
 
 struct App {
     List<Book> books;
-    // List<Staff> staffs;
+    List<Customer> customers;
+    List<Staff> staffs;
 
     void menu() {
         while (true) {
@@ -15,9 +19,13 @@ struct App {
             cout << "5. Thong tin" << endl;
             cout << "0. Thoat" << endl;
             cout << endl << PRESS_OPTION;
-            char k = _getch();
+            char k;
+            cin >> k;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             switch ((int)k - 48) {
             case 1: BookMenu::show(books); break;
+            case 2: StaffMenu::show(staffs); break;
+            case 3: CustomerMenu::show(customers); break;
             case 0: case -21: // 0 or ESC
                 Print::removeLine(1);
                 cout << "Cam on da su dung chuong trinh!" << endl;
@@ -27,6 +35,8 @@ struct App {
     }
     void run() {  // Hàm chạy chính
         books.loadFile();
+        customers.loadFile();
+        staffs.loadFile();
         menu();
     }
 };

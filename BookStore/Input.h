@@ -1,7 +1,6 @@
-﻿#include <windows.h> // Thư viện quan trọng để can thiệp bàn phím
+﻿#pragma once
 #include <iostream>
 #include <string>
-#include <vector>
 
 using namespace std;
 
@@ -9,6 +8,28 @@ struct Input {
 	// Nhập với tham chiếu
     static void in(string& value, string label, bool isRequired = false) {
 		value = read(label, value, isRequired);
+    }
+	// Nhập số nguyên với validate
+    static void in(int& value, string label, bool isRequired = false) {
+        string temp;
+        bool valid = false;
+        do {
+            temp = read(label, value > 0 ? to_string(value) : "", isRequired);
+            if (temp.empty() && !isRequired) {
+                return;
+            }
+            try {
+                int num = stoi(temp);
+                if (num >= 0) {
+                    value = num;
+                    valid = true;
+                } else {
+                    cout << "Vui long nhap so nguyen khong am!" << endl;
+                }
+            } catch (...) {
+                cout << "Vui long nhap so nguyen hop le!" << endl;
+            }
+        } while (!valid);
     }
 	// Nhập với trả về
     static string read(string label, bool isRequired = false) {
@@ -31,19 +52,7 @@ struct Input {
 	// Gõ tự động
     static void autoTyping(string source) {
         if (source.empty()) return;
-        // vector
-        vector<INPUT_RECORD> events(source.length());
-        for (size_t i = 0; i < source.length(); ++i) {
-            events[i].EventType = KEY_EVENT;
-            events[i].Event.KeyEvent.bKeyDown = TRUE;
-            events[i].Event.KeyEvent.dwControlKeyState = 0;
-            events[i].Event.KeyEvent.wVirtualKeyCode = 0;
-            events[i].Event.KeyEvent.wRepeatCount = 1;
-            events[i].Event.KeyEvent.uChar.AsciiChar = source[i];
-        }
-        DWORD written;
-        HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
-        // Ép kiểu (DWORD) để sửa cảnh báo warning C4267
-        WriteConsoleInput(hInput, &events[0], (DWORD)events.size(), &written);
+        // In sẵn giá trị gợi ý để người dùng chỉnh sửa nếu cần
+        cout << source;
     }
 };
