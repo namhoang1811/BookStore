@@ -1,6 +1,9 @@
 ﻿#pragma once
 #if defined(_WIN32) || defined(_WIN64)
 #include <conio.h>
+#else
+#include <termios.h>
+#include <unistd.h>
 #endif
 #include <functional> // Để dùng lambda function
 #include <iostream>

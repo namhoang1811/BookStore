@@ -3,6 +3,9 @@
 #include <windows.h>
 #include <conio.h>
 #include <vector>
+#else
+#include <termios.h>
+#include <unistd.h>
 #endif
 #include "Const.h"
 #include <iostream>
