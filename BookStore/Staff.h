@@ -6,8 +6,19 @@ struct Staff : Base {
     string position;
     int salary = 0;
 
-    static Staff create();
-    static void edit(Staff& source);
+    Staff() {}
+    Staff(string id, string name, string phone, string position, int salary) {
+        this->id = id;
+        this->name = name;
+        this->phone = phone;
+        this->position = position;
+        this->salary = salary;
+    }
+
+    static void create(List<Staff>& sources);
+    static void edit(Staff& staff, List<Staff>& sources);
+    static void remove(Staff& staff, List<Staff>& sources);
+
 
     // Sắp xếp theo lương
     static bool sortBySalaryAsc(Staff a, Staff b);

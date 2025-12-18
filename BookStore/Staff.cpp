@@ -2,25 +2,43 @@
 
 namespace {
     // Hàm dùng chung cho tạo và chỉnh sửa
-    Staff createEdit(Staff& source, bool isCreate) {        
-        if (isCreate) {
-            Input::in(source.id, "Nhap Ma NV: ", true);
+    Staff createEdit(Staff& staff, List<Staff>& sources, bool isCreate) {
+        while (isCreate) {
+            try {
+                Input::in(staff.id, "Nhap Ma NV: ", true);
+                if (!sources.any([staff](Staff d) {
+                    return d.id == staff.id;
+                    })) {
+                    break;
+                }
+            } catch (...) {}
+            Print::invalid();
         }
-        Input::in(source.name, "Nhap Ten NV: ", true);
-        Input::in(source.phone, "Nhap So dien thoai: ");
-        Input::in(source.position, "Nhap Chuc vu: ");
-        Input::in(source.salary, "Nhap Luong: ");
-        return source;
+        Input::in(staff.name, "Nhap Ten NV: ", true);
+        Input::in(staff.phone, "Nhap So dien thoai: ");
+        Input::in(staff.position, "Nhap Chuc vu: ");
+        Input::in(staff.salary, "Nhap Luong: ");
+        return staff;
     }
 }
 
-Staff Staff::create() {
+void Staff::create(List<Staff>& sources) {
     Staff model;
-    return createEdit(model, true);
+    createEdit(model, sources, true);
+    sources.add(model);
+    sources.saveFile();
 }
 
-void Staff::edit(Staff& source) {
-    createEdit(source, false);
+void Staff::edit(Staff& staff, List<Staff>& sources) {
+    createEdit(staff, sources, false);
+}
+
+void Staff::remove(Staff& staff, List<Staff>& sources) {
+    bool isDelete = sources.remove([&](Staff d) { return d.id == staff.id; });
+    if (isDelete) {
+        sources.saveFile();
+        Print::success(DELETE_SUCCESS);
+    }
 }
 
 // Sắp xếp theo lương tăng dần

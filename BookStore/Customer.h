@@ -2,12 +2,22 @@
 #include "Base.h"
 
 struct Customer : Base {
-    int points;
+    int points = 0;
     string phone;
     string address;	
 
-    static Customer create();
-    static void edit(Customer& source);
+    Customer() {}
+    Customer(string id, string name, int points, string phone, string address) {
+        this->id = id;
+        this->name = name;
+        this->points = points;
+        this->phone = phone;
+        this->address = address;
+    }
+
+    static void create(List<Customer>& sources);
+    static void edit(Customer& customer, List<Customer>& sources);
+    static void remove(Customer& customer, List<Customer>& sources);
 
     void printHeader() override {
         cout << left << setw(10) << "MA" << setw(30) << "TEN KH" << setw(20) << "DIEM TICH LUY" << setw(20) << "DIEN THOAI" << setw(40) << "DIA CHI" << endl;

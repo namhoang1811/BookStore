@@ -1,9 +1,12 @@
 ﻿#pragma once
 #include "Print.h"
 #include "File.h"
+#include "List.h"
 #include <string>
+#include <vector>
 #include <iostream> // Để sử dụng lệnh cout
 #include <iomanip>  // Để sử dụng lệnh setw
+#include <limits>
 
 using namespace std;
 

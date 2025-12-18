@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <typeinfo>
 
 using namespace std;
@@ -23,7 +24,17 @@ struct File {
         }
     }
 
-    // 3. Hàm tổng quát (Variadic Template) - Ghi N tham số
+    // 3. Hàm đặc biệt cho std::vector<T> 
+    template <typename T>
+    static void writeOne(ofstream& out, const vector<T>& vec) {
+        int size = (int)vec.size();
+        writeOne(out, size); // Ghi kích thước vector trước
+        for (const auto& item : vec) {
+            writeOne(out, item); // Ghi từng phần tử
+        }
+    }
+
+    // 4. Hàm tổng quát (Variadic Template) - Ghi N tham số
     // Cú pháp ...Args là của C++ hiện đại
     template <typename... Args>
     static void save(ofstream& out, const Args&... args) {
@@ -54,7 +65,18 @@ struct File {
         }
     }
 
-    // 3. Hàm tổng quát - Đọc N tham số
+    // 3. Hàm đặc biệt cho std::vector<T>
+    template <typename T>
+    static void readOne(ifstream& in, vector<T>& vec) {
+        int size = 0;
+        readOne(in, size); // Đọc kích thước
+        vec.resize(size);  // Cấp phát bộ nhớ
+        for (int i = 0; i < size; ++i) {
+            readOne(in, vec[i]); // Đọc từng phần tử
+        }
+    }
+
+    // 4. Hàm tổng quát - Đọc N tham số
     template <typename... Args>
     static void load(ifstream& in, Args&... args) {
         (readOne(in, args), ...);

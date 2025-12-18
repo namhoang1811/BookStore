@@ -22,4 +22,5 @@ struct Print {
 
 	// In thông báo nhập liệu không hợp lệ
     static void invalid();
+	static void invalid(string message);
 };

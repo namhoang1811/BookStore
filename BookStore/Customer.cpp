@@ -10,24 +10,47 @@ namespace {
     }
 
     // Hàm dùng chung cho tạo và chỉnh sửa
-    Customer createEdit(Customer& source, bool isCreate) {        
-        if (isCreate) {
-            Input::in(source.id, "Nhap Ma KH: ", true);
-			// Ngẫu nhiên điểm tích lũy khi tạo mới
-			source.points = randomInt(0, 1000);
+    Customer createEdit(Customer& customer, List<Customer>& sources, bool isCreate) {
+        while (isCreate) {
+            try {
+                Input::in(customer.id, "Nhap Ma Khach hang: ", true);
+                if (!sources.any([customer](Customer d) {
+                    return d.id == customer.id;
+                    })) {
+                    break;
+                }
+            } catch (...) {}
+            Print::invalid();
         }
-        Input::in(source.name, "Nhap Ten KH: ", true);
-        Input::in(source.phone, "Nhap So dien thoai: ");
-        Input::in(source.address, "Nhap Dia chi: ");
-        return source;
+        if (isCreate) {
+			// Ngẫu nhiên điểm tích lũy khi tạo mới
+			customer.points = randomInt(0, 1000);
+        }
+        Input::in(customer.name, "Nhap Ten KH: ", true);
+        Input::in(customer.phone, "Nhap So dien thoai: ");
+        Input::in(customer.address, "Nhap Dia chi: ");
+        return customer;
     }
 }
 
-Customer Customer::create() {
+void Customer::create(List<Customer>& sources) {
     Customer model;
-    return createEdit(model, true);
+    createEdit(model, sources, true);
+    sources.add(model);
+    sources.saveFile();
+    Print::success(ACTIVE_SUCCESS);
 }
 
-void Customer::edit(Customer& source) {
-    createEdit(source, false);
+void Customer::edit(Customer& customer, List<Customer>& sources) {
+    createEdit(customer, sources, false);
+    sources.saveFile();
+    Print::success(EDIT_SUCCESS);
+}
+
+void Customer::remove(Customer& customer, List<Customer>& sources) {
+    bool isDelete = sources.remove([&](Customer d) { return d.id == customer.id; });
+    if (isDelete) {
+        sources.saveFile();
+        Print::success(DELETE_SUCCESS);
+    }
 }

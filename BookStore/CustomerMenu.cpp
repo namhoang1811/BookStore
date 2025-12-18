@@ -1,7 +1,4 @@
 #include "CustomerMenu.h"
-#include "Input.h"
-#include "Print.h"
-#include <limits>
 
 namespace {
     Customer* findAt(List<Customer>& customers) {
@@ -29,7 +26,7 @@ namespace {
     }
 }
 
-void CustomerMenu::show(List<Customer>& customers) {
+void CustomerMenu::show(List<Customer>& sources) {
     while (true) {
         Print::title("QUAN LY KHACH HANG");
         cout << "1. Xem danh sach" << endl;
@@ -54,26 +51,16 @@ void CustomerMenu::show(List<Customer>& customers) {
         switch ((int)k - 48) {
         case 1:
             Print::title("DANH SACH KHACH HANG");
-            customers.display();
+            sources.display();
             break;
         case 2: {
             Print::title("TAO KHACH HANG MOI");
-            auto model = Customer::create();
-            bool isAny = customers.any([model](Customer d) {
-                return d.id == model.id;
-                });
-            if (!isAny) {
-                customers.add(model);
-                customers.saveFile();
-                Print::success(ACTIVE_SUCCESS);
-            } else {
-                Print::danger("Them Khach Hang moi that bai do trung Ma");
-            }
+            Customer::create(sources);            
             break;
         }
         case 3: {
             Print::title("TIM KHACH HANG THEO THU TU");
-            Customer* data = findAt(customers);
+            Customer* data = findAt(sources);
             if (data) {
                 data->printData();
                 Print::pressAnyKey();
@@ -84,70 +71,76 @@ void CustomerMenu::show(List<Customer>& customers) {
             Print::title("TIM KIEM KHACH HANG THEO TEN");
             string keyword;
             keyword = Input::read("Nhap ten khach hang can tim: ", true);
-            customers.display([keyword](Customer d) {
+            sources.display([keyword](Customer d) {
                 return d.name.find(keyword) != string::npos;
                 });
             break;
         }
         case 5: {
             Print::title("TIM KHACH HANG CO DIEN TICH LUY LON NHAT");
-            Customer* data = customers.find([](Customer a, Customer b) {
+            Customer* data = sources.find([](Customer a, Customer b) {
                 return a.points > b.points;
                 });
             if (data) {
-                data->printData();
-                Print::pressAnyKey();
-            }
+                sources.display([data](Customer d) {
+                    return d.points == data->points;
+                    });
+            } else {
+                Print::warning(NOT_FOUND);
+			}
             break;
         }
         case 6: {
             Print::title("TIM KHACH HANG CO DIEN TICH LUY NHO NHAT");
-            Customer* data = customers.find([](Customer a, Customer b) {
+            Customer* data = sources.find([](Customer a, Customer b) {
                 return a.points < b.points;
                 });
             if (data) {
-                data->printData();
-                Print::pressAnyKey();
+                sources.display([data](Customer d) {
+                    return d.points == data->points;
+                    });
+            } else {
+                Print::warning(NOT_FOUND);
             }
             break;
         }
         case 7: {
             Print::title("SAP XEP KHACH HANG THEO DIEN TICH LUY TANG DAN");
-            customers.sort([](Customer a, Customer b) {
+            sources.sort([](Customer a, Customer b) {
                 return a.points > b.points;
                 });
             Print::success(ACTIVE_SUCCESS, 1000);
             Print::removeLine(2);
-            customers.display();
+            sources.display();
             break;
         }
         case 8: {
             Print::title("SAP XEP KHACH HANG THEO DIEM TICH LUY GIAM DAN");
-            customers.sort([](Customer a, Customer b) {
+            sources.sort([](Customer a, Customer b) {
                 return a.points < b.points;
                 });
             Print::success(ACTIVE_SUCCESS, 1000);
             Print::removeLine(2);
-            customers.display();
+            sources.display();
             break;
         }
         case 9: {
             Print::title("THONG KE KHACH HANG CO DIEN LICH LUY > 100");
-            customers.display([](Customer d) {
+            sources.display([](Customer d) {
                 return d.points > 100;
                 });
             break;
         }
         case 17: case 49: { // A
             Print::title("THONG KE KHACH HANG CHUA CO DIEM TICH LUY");
-            customers.display([](Customer d) {
+            sources.display([](Customer d) {
                 return d.points == 0;
                 });
             break;
         }
         case 18: case 50: { // B
             Print::title("TINH TONG SO DIEM TICH LUY CUA TAT CA KHACH HANG");
-            int total = customers.sum<int>([](Customer d) {
+            int total = sources.sum<int>([](Customer d) {
                 return d.points;
                 });
             cout << "Tong so diem tich luy: " << total << endl;
@@ -156,51 +149,42 @@ void CustomerMenu::show(List<Customer>& customers) {
         }
         case 19: case 51: { // C
             Print::title("TINH TB DIEM TICH LUY CUA TAT CA KHACH HANG");
-            int average = customers.sum<int>([](Customer d) {
+            int average = sources.sum<int>([](Customer d) {
                 return d.points;
-                }) / customers.size;
+                }) / sources.size;
             cout << "Trung binh diem tich luy: " << average << endl;
             Print::pressAnyKey();
             break;
         }
         case 20: case 52: {  // D
             Print::title("CHINH SUA KHACH HANG THEO THU TU");
-            Customer* data = findAt(customers);
+            Customer* data = findAt(sources);
             if (data) {
-                Customer::edit(*data);
-                customers.saveFile();
-                Print::success(EDIT_SUCCESS);
+                Customer::edit(*data, sources);
             }
             break;
         }
         case 21: case 53: {  // E
             Print::title("CHINH SUA KHACH HANG THEO MA");
-            Customer* data = findById(customers);
+            Customer* data = findById(sources);
             if (data) {
-                Customer::edit(*data);
-                customers.saveFile();
-                Print::success(EDIT_SUCCESS);
+                Customer::edit(*data, sources);
             }
             break;
         }
         case 22: case 54: {  // F
             Print::title("XOA KHACH HANG THEO THU TU");
-            Customer* data = findAt(customers);
+            Customer* data = findAt(sources);
             if (data) {
-                customers.remove([&](Customer d) { return d.id == data->id; });
-                customers.saveFile();
-                Print::success(DELETE_SUCCESS);
+                Customer::remove(*data, sources);
             }
             break;
         }
         case 23: case 55: {  // G
             Print::title("XOA KHACH HANG THEO MA");
-            Customer* data = findById(customers);
+            Customer* data = findById(sources);
             if (data) {
-                string deleteId = data->id;
-                customers.remove([&](Customer d) { return d.id == deleteId; });
-                customers.saveFile();
-                Print::success(DELETE_SUCCESS);
+                Customer::remove(*data, sources);
             }
             break;
         }

@@ -3,12 +3,23 @@
 
 struct Book : Base {
     string author;
-    int year;
-    double price;
-    int quantity;
+    int year = 0;
+    double price = 0;
+    int quantity = 0;
 
-    static Book create();
-    static void edit(Book& source);
+    Book() {}
+    Book(string id, string name, string author, int year, int quantity, double price) {
+        this->id = id;
+        this->name = name;
+        this->author = author;
+        this->year = year;
+        this->quantity = quantity;
+        this->price = price;
+    }
+
+    static void create(List<Book>& sources);
+    static void edit(Book& book, List<Book>& sources);
+    static void remove(Book& book, List<Book>& sources);
 
     void printHeader() override {
         cout << left << setw(10) << "MA" << setw(30) << "TEN SACH" << setw(30) << "TAC GIA" << setw(10) << "NAM" << setw(15) << "GIA" << setw(15) << "SO LUONG" << endl;

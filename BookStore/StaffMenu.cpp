@@ -1,7 +1,4 @@
 #include "StaffMenu.h"
-#include "Input.h"
-#include "Print.h"
-#include <limits>
 
 namespace {
     Staff* findAt(List<Staff>& staffs) {
@@ -29,7 +26,7 @@ namespace {
     }
 }
 
-void StaffMenu::show(List<Staff>& staffs) {
+void StaffMenu::show(List<Staff>& sources) {
     while (true) {
         Print::title("QUAN LY NHAN VIEN");
         cout << "1. Xem danh sach" << endl;
@@ -54,26 +51,17 @@ void StaffMenu::show(List<Staff>& staffs) {
         switch ((int)k - 48) {
         case 1:
             Print::title("DANH SACH NHAN VIEN");
-            staffs.display();
+            sources.display();
             break;
         case 2: {
             Print::title("TAO NHAN VIEN MOI");
-            auto model = Staff::create();
-            bool isAny = staffs.any([model](Staff d) {
-                return d.id == model.id;
-                });
-            if (!isAny) {
-                staffs.add(model);
-                staffs.saveFile();
-                Print::success(ACTIVE_SUCCESS);
-            } else {
-                Print::danger("Them Nhan Vien moi that bai do trung Ma");
-            }
+            Staff::create(sources);
+            Print::success(ACTIVE_SUCCESS);
             break;
         }
         case 3: {
             Print::title("TIM NHAN VIEN THEO THU TU");
-            Staff* data = findAt(staffs);
+            Staff* data = findAt(sources);
             if (data) {
                 data->printData();
                 Print::pressAnyKey();
@@ -84,70 +72,76 @@ void StaffMenu::show(List<Staff>& staffs) {
             Print::title("TIM KIEM NHAN VIEN THEO TEN");
             string keyword;
             keyword = Input::read("Nhap ten nhan vien can tim: ", true);
-            staffs.display([keyword](Staff d) {
+            sources.display([keyword](Staff d) {
                 return d.name.find(keyword) != string::npos;
                 });
             break;
         }
         case 5: {
             Print::title("TIM NHAN VIEN CO LUONG CAO NHAT");
-            Staff* data = staffs.find([](Staff a, Staff b) {
+            Staff* data = sources.find([](Staff a, Staff b) {
                 return a.salary > b.salary;
                 });
             if (data) {
-                data->printData();
-                Print::pressAnyKey();
-            }
+                sources.display([data](Staff d) {
+                    return d.salary == data->salary;
+                    });
+            } else {
+                Print::warning(NOT_FOUND);
+			}
             break;
         }
         case 6: {
             Print::title("TIM NHAN VIEN CO LUONG THAP NHAT");
-            Staff* data = staffs.find([](Staff a, Staff b) {
+            Staff* data = sources.find([](Staff a, Staff b) {
                 return a.salary < b.salary;
                 });
             if (data) {
-                data->printData();
-                Print::pressAnyKey();
-            }
+                sources.display([data](Staff d) {
+                    return d.salary == data->salary;
+                    });
+            } else {
+				Print::warning(NOT_FOUND);
+			}
             break;
         }
         case 7: {
             Print::title("SAP XEP NHAN VIEN THEO LUONG TANG DAN");
-            staffs.sort([](Staff a, Staff b) {
+            sources.sort([](Staff a, Staff b) {
                 return a.salary > b.salary;
                 });
             Print::success(ACTIVE_SUCCESS, 1000);
             Print::removeLine(2);
-            staffs.display();
+            sources.display();
             break;
         }
         case 8: {
             Print::title("SAP XEP NHAN VIEN THEO LUONG GIAM DAN");
-            staffs.sort([](Staff a, Staff b) {
+            sources.sort([](Staff a, Staff b) {
                 return a.salary < b.salary;
                 });
             Print::success(ACTIVE_SUCCESS, 1000);
             Print::removeLine(2);
-            staffs.display();
+            sources.display();
             break;
         }
         case 9: {
             Print::title("THONG KE NHAN VIEN CO LUONG > 10000000");
-            staffs.display([](Staff d) {
+            sources.display([](Staff d) {
                 return d.salary > 10000000;
                 });
             break;
         }
         case 17: case 49: { // A
             Print::title("THONG KE NHAN VIEN CHUA CO LUONG");
-            staffs.display([](Staff d) {
+            sources.display([](Staff d) {
                 return d.salary == 0;
                 });
             break;
         }
         case 18: case 50: { // B
             Print::title("TINH TONG LUONG CUA TAT CA NHAN VIEN");
-            int total = staffs.sum<int>([](Staff d) {
+            int total = sources.sum<int>([](Staff d) {
                 return d.salary;
                 });
             cout << "Tong luong: " << total << endl;
@@ -156,51 +150,42 @@ void StaffMenu::show(List<Staff>& staffs) {
         }
         case 19: case 51: { // C
             Print::title("TINH TB LUONG CUA TAT CA NHAN VIEN");
-            int average = staffs.sum<int>([](Staff d) {
+            int average = sources.sum<int>([](Staff d) {
                 return d.salary;
-                }) / staffs.size;
+                }) / sources.size;
             cout << "Trung binh luong: " << average << endl;
             Print::pressAnyKey();
             break;
         }
         case 20: case 52: {  // D
             Print::title("CHINH SUA NHAN VIEN THEO THU TU");
-            Staff* data = findAt(staffs);
+            Staff* data = findAt(sources);
             if (data) {
-                Staff::edit(*data);
-                staffs.saveFile();
-                Print::success(EDIT_SUCCESS);
+                Staff::edit(*data, sources);
             }
             break;
         }
         case 21: case 53: {  // E
             Print::title("CHINH SUA NHAN VIEN THEO MA");
-            Staff* data = findById(staffs);
+            Staff* data = findById(sources);
             if (data) {
-                Staff::edit(*data);
-                staffs.saveFile();
-                Print::success(EDIT_SUCCESS);
+                Staff::edit(*data, sources);
             }
             break;
         }
         case 22: case 54: {  // F
             Print::title("XOA NHAN VIEN THEO THU TU");
-            Staff* data = findAt(staffs);
+            Staff* data = findAt(sources);
             if (data) {
-                staffs.remove([&](Staff d) { return d.id == data->id; });
-                staffs.saveFile();
-                Print::success(DELETE_SUCCESS);
+                Staff::remove(*data, sources);
             }
             break;
         }
         case 23: case 55: {  // G
             Print::title("XOA NHAN VIEN THEO MA");
-            Staff* data = findById(staffs);
+            Staff* data = findById(sources);
             if (data) {
-                string deleteId = data->id;
-                staffs.remove([&](Staff d) { return d.id == deleteId; });
-                staffs.saveFile();
-                Print::success(DELETE_SUCCESS);
+                Staff::remove(*data, sources);
             }
             break;
         }

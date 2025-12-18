@@ -65,6 +65,9 @@ void Print::success(string message, int sleep) {
 }
 
 void Print::invalid() {
+    invalid(FIELD_INVALID);
+}
+void Print::invalid(string message) {
     warning(FIELD_INVALID, 1000);
     Print::removeLine(3);
 }

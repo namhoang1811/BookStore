@@ -134,6 +134,8 @@
     <ClCompile Include="Customer.cpp" />
     <ClCompile Include="CustomerMenu.cpp" />
     <ClCompile Include="DateTime.cpp" />
+    <ClCompile Include="Invoice.cpp" />
+    <ClCompile Include="InvoiceMenu.cpp" />
     <ClCompile Include="Print.cpp" />
     <ClCompile Include="Print.h" />
     <ClCompile Include="Main.cpp" />
@@ -149,6 +151,7 @@
     <ClInclude Include="CustomerMenu.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="Init.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Invoice.h" />
     <ClInclude Include="InvoiceMenu.h" />
