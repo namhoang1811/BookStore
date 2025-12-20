@@ -62,7 +62,7 @@ struct Input {
         return temp;
     }
 
-    // Hàm thay thế _getch() chạy mọi nơi
+	// Hàm đọc một ký tự ngay không cần nhấn Enter
     static char getch() {
 #if defined(_WIN32) || defined(_WIN64)
         // Trên Windows: Gọi hàm có sẵn
@@ -80,7 +80,7 @@ struct Input {
         tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
         // 4. Đọc ký tự
         ch = getchar();
-        // 5. Trả lại thuộc tính cũ cho terminal (Rất quan trọng!)
+        // 5. Trả lại thuộc tính cũ cho terminal
         tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
         return ch;
 #endif

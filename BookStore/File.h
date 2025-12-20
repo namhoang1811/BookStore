@@ -9,13 +9,13 @@ using namespace std;
 
 struct File {
     // --- PHẦN GHI (SAVE) ---
-    // 1. Hàm ghi cơ bản cho các kiểu số (int, double, bool, char...)
+    // 1. Hàm ghi cho int, double, bool, char...
     template <typename T>
     static void writeOne(ofstream& out, const T& value) {
         out.write((char*)&value, sizeof(T));
     }
 
-    // 2. Hàm ghi đặc biệt dành riêng cho std::string
+    // 2. Hàm ghi cho std::string
     static void writeOne(ofstream& out, const string& s) {
         int len = (int)s.length();
         out.write((char*)&len, sizeof(int));      // Ghi độ dài
@@ -24,7 +24,7 @@ struct File {
         }
     }
 
-    // 3. Hàm đặc biệt cho std::vector<T> 
+    // 3. Hàm ghi cho std::vector<T> 
     template <typename T>
     static void writeOne(ofstream& out, const vector<T>& vec) {
         int size = (int)vec.size();
@@ -34,22 +34,20 @@ struct File {
         }
     }
 
-    // 4. Hàm tổng quát (Variadic Template) - Ghi N tham số
-    // Cú pháp ...Args là của C++ hiện đại
+    // 4. Hàm tổng quát - Ghi N tham số
     template <typename... Args>
     static void save(ofstream& out, const Args&... args) {
-        // (Fold Expression - C++17): Gọi writeOne cho từng biến trong danh sách
         (writeOne(out, args), ...);
     }
 
     // --- PHẦN ĐỌC (LOAD) ---
-    // 1. Hàm đọc cơ bản cho số
+    // 1. Hàm đọc cho int, double, bool, char...
     template <typename T>
     static void readOne(ifstream& in, T& value) {
         in.read((char*)&value, sizeof(T));
     }
 
-	// 2. Hàm đọc đặc biệt dành riêng cho std::string
+	// 2. Hàm đọc cho std::string
     static void readOne(ifstream& in, string& s) {
         int len = 0;
         in.read((char*)&len, sizeof(int));        // Đọc độ dài
@@ -65,7 +63,7 @@ struct File {
         }
     }
 
-    // 3. Hàm đặc biệt cho std::vector<T>
+    // 3. Hàm đọc cho std::vector<T>
     template <typename T>
     static void readOne(ifstream& in, vector<T>& vec) {
         int size = 0;

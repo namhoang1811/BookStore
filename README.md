@@ -8,23 +8,41 @@ Hệ thống quản lý nhà sách trên nền tảng Console, được tối ư
 
 ## 🚀 Tính năng nổi bật
 
-### Phân hệ Quản trị (Admin)
+### 1 - Quản lý Sách (Book)
 
-*   Quản lý kho hàng (Inventory): Thêm, xóa, sửa thông tin sách.
+*   Thêm, xóa, sửa thông tin Sách.
     
-*   Nhập hàng (Restock): Cập nhật số lượng tồn kho nhanh chóng.
+*   Tìm kiếm Sách có giá trị lớn nhất/nhỏ nhất
     
-*   Báo cáo: Xem danh sách sách bán chạy, doanh thu theo ngày.
-    
-*   Quản lý dữ liệu: Tự động lưu trữ dữ liệu vào File hệ thống khi thoát.
-    
-### Phân hệ Khách hàng (User)
+*   Sắp xếp và Thống kê Sách
 
-*   Tìm kiếm thông minh: Tìm theo Tên, Tác giả (Partial Search) hoặc ISBN (Exact Match).
+### 2 - Quản lý Nhân viên (Staff)
+
+*   Thêm, xóa, sửa thông tin Nhân viên.
     
-*   Giỏ hàng (Shopping Cart): Thêm/bớt sản phẩm, xem tạm tính.
+*   Tìm kiếm Nhân viên có lương lớn nhất/nhỏ nhất
     
-*   Thanh toán: Xử lý đơn hàng, kiểm tra tồn kho thời gian thực, xuất hóa đơn.
+*   Sắp xếp và Thống kê Nhân viên
+
+### 3 - Quản lý Khách hàng (Customer)
+
+*   Thêm, xóa, sửa thông tin Khách hàng.
+    
+*   Tìm kiếm Khách hàng có điểm tích lũy lớn nhất/nhỏ nhất
+    
+*   Sắp xếp và Thống kê Khách hàng
+
+### 4 - Quản lý Hóa đơn (Invoice)
+
+*   Thêm, xóa, sửa thông tin Hóa đơn.
+    
+*   Tìm kiếm Hóa đơn có giá trị lớn nhất/nhỏ nhất
+    
+*   Sắp xếp và Thống kê Hóa đơn
+    
+### 5 - Khởi tạo dữ liệu mẫu (Init)
+
+*   Sinh ra dữ liệu mẫu để kiểm thử nhanh chóng.
 
 ## 🧪 Kiểm thử (Testing)
 
@@ -32,7 +50,7 @@ Dự án tích hợp sẵn bộ Unit Test để đảm bảo tính đúng đắn
 
 Để chạy test:
 
-1.  Trong Visual Studio, mở menu BookStore \> Test BookStore.Tests
+1.  Trong Visual Studio, mở menu BookStore \> Test BookStore.Test
     
 2.  Nhấn Run All Tests (hoặc biểu tượng Play màu xanh).
     
@@ -41,7 +59,7 @@ Dự án tích hợp sẵn bộ Unit Test để đảm bảo tính đúng đắn
 
 ## 📝 License
 
-Dự án nội bộ để học tập của đại học Mở Hà Nội - HOU
+Dự án bài tập lớn của Sinh viên đại học Mở Hà Nội - HOU
 
 * * *
 
